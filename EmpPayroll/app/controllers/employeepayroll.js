@@ -2,20 +2,28 @@ const EmployeePayroll = require('../models/employeepayroll.js');
 
 // Create and Save a employee data
 exports.create = (req, res) => {
-    var abc = 0;
-    if (!req.body.firstName) {
-        abc = 1;
+    var firstNameRag = new RegExp('^[A-Z]{1}[a-zA-Z\\s]{1,}$');
+    var lastNameReg = new RegExp('^[A-Z]{1}[a-zA-Z\\s]{1,}$');
+    let emailIdReg = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$');
+    let passwordReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
+    var attribute = "";
+    var temp = 0;
+    if (!firstNameRag.test(req.body.firstName)) {
+        temp = 1;
+        attribute = "firstName";
+    } else if (!lastNameReg.test(req.body.lastName)) {
+        temp = 1;
+        attribute = "lastName";
+    } else if (!emailIdReg.test(req.body.emailId)) {
+        temp = 1;
+        attribute = "emailIdReg";
+    } else if (!passwordReg.test(req.body.password)) {
+        temp = 1;
+        attribute = "PasswordReg";
     }
-    if (!req.body.lastName) {
-        abc = 1;
-    }
-    if (!req.body.emailId) {
-        abc = 1;
-    }
-    if (!req.body.password) { abc = 1; }
-    if (abc == 1) {
+    if (temp == 1) {
         return res.status(400).send({
-            message: "Your are missing some data!!"
+            message: "Your Enter Invalid " + attribute + " field"
         });
     }
 
@@ -74,24 +82,28 @@ exports.findOne = (req, res) => {
 // Update a employee payroll identified by the employeepayrollId in the request
 exports.update = (req, res) => {
     // Validate Request
-    var abc = 0;
-    if (!req.body.firstName) {
-        abc = 1;
+    var attribute = "";
+    var temp = 0;
+    if (!firstNameRag.test(req.body.firstName)) {
+        temp = 1;
+        attribute = "firstName";
+    } else if (!lastNameReg.test(req.body.lastName)) {
+        temp = 1;
+        attribute = "lastName";
+    } else if (!emailIdReg.test(req.body.emailId)) {
+        temp = 1;
+        attribute = "emailIdReg";
+    } else if (!passwordReg.test(req.body.password)) {
+        temp = 1;
+        attribute = "passwordReg";
     }
-    if (!req.body.lastName) {
-        abc = 1;
-    }
-    if (!req.body.emailId) {
-        abc = 1;
-    }
-    if (!req.body.password) { abc = 1; }
-    if (abc == 1) {
+    if (temp == 1) {
         return res.status(400).send({
-            message: "Your are missing some data!!"
+            message: "Your Enter Invalid" + attribute + "field"
         });
     }
 
-    // Find note and update it with the request body
+    // Find employee and update it with the request body
     EmployeePayroll.findByIdAndUpdate(req.params.employeepayrollId, {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
