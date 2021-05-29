@@ -2,28 +2,22 @@ const EmployeePayroll = require('../models/employeepayroll.js');
 
 // Create and Save a employee data
 exports.create = (req, res) => {
-    var firstNameRag = new RegExp('^[A-Z]{1}[a-zA-Z\\s]{1,}$');
-    var lastNameReg = new RegExp('^[A-Z]{1}[a-zA-Z\\s]{1,}$');
-    let emailIdReg = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$');
-    let passwordReg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
-    var attribute = "";
     var temp = 0;
-    if (!firstNameRag.test(req.body.firstName)) {
+    if (!req.body.firstName) {
         temp = 1;
-        attribute = "firstName";
-    } else if (!lastNameReg.test(req.body.lastName)) {
+    }
+    if (!req.body.lastName) {
         temp = 1;
-        attribute = "lastName";
-    } else if (!emailIdReg.test(req.body.emailId)) {
+    }
+    if (!req.body.emailId) {
         temp = 1;
-        attribute = "emailIdReg";
-    } else if (!passwordReg.test(req.body.password)) {
+    }
+    if (!req.body.password) {
         temp = 1;
-        attribute = "PasswordReg";
     }
     if (temp == 1) {
         return res.status(400).send({
-            message: "Your Enter Invalid " + attribute + " field"
+            message: "Your Are Missing Some Data"
         });
     }
 
@@ -81,28 +75,24 @@ exports.findOne = (req, res) => {
 
 // Update a employee payroll identified by the employeepayrollId in the request
 exports.update = (req, res) => {
-    // Validate Request
-    var attribute = "";
     var temp = 0;
-    if (!firstNameRag.test(req.body.firstName)) {
+    if (!req.body.firstName) {
         temp = 1;
-        attribute = "firstName";
-    } else if (!lastNameReg.test(req.body.lastName)) {
+    }
+    if (!req.body.lastName) {
         temp = 1;
-        attribute = "lastName";
-    } else if (!emailIdReg.test(req.body.emailId)) {
+    }
+    if (!req.body.emailId) {
         temp = 1;
-        attribute = "emailIdReg";
-    } else if (!passwordReg.test(req.body.password)) {
+    }
+    if (!req.body.password) {
         temp = 1;
-        attribute = "passwordReg";
     }
     if (temp == 1) {
         return res.status(400).send({
-            message: "Your Enter Invalid" + attribute + "field"
+            message: "Your Are Missing Some Data"
         });
     }
-
     // Find employee and update it with the request body
     EmployeePayroll.findByIdAndUpdate(req.params.employeepayrollId, {
             firstName: req.body.firstName,
