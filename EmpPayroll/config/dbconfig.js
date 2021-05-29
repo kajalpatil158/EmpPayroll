@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 function dbconnection() {
 
     mongoose.promise;
-    const url = 'mongodb://localhost:27017/employeepayroll';
+    const url = 'mongodb://localhost:27017/empPayroll';
     mongoose.connect(url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,

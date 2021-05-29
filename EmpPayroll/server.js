@@ -2,9 +2,10 @@ const express = require('express');
 // create express app
 const app = express();
 
+
 //Connect to DB
-//const dbconnection = require('./config/database.config.js');
-//dbconnection();
+const dbconnection = require('./config/dbconfig.js');
+dbconnection();
 
 // parse requests 
 app.use(express.urlencoded({ extended: true }))
@@ -14,13 +15,14 @@ app.use(express.json())
 
 // define a simple route
 app.get('/', (req, res) => {
-    res.json({ "message": "Welcome In EmployeePlayRoll Application " });
+    res.json(`Well Come In Employee Payroll Application!!!!`);
 });
 
 // Require Employee routes
-//require('./app/routes/employeepayroll.routes.js')(app);
+require('./app/routes/employeepayroll.js')(app);
 
 // listen for requests
-app.listen(8000, () => {
-    console.log("Server is listening on port 8000 ");
+const port = 7000;
+app.listen(7000, () => {
+    console.log('Application Is Listening On Port 7000');
 });
