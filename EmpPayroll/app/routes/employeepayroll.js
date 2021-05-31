@@ -1,18 +1,19 @@
+const EmployeePayroll = require('../controllers/employeepayroll.js');
+
 module.exports = (app) => {
-    const employeePayroll = require('../controllers/employeepayroll.js');
 
     // Create a new employeespayroll
-    app.post('/empPayroll', employeePayroll.create);
+    app.post('/empPayroll', EmployeePayroll.create);
 
-    // Retrieve all employeespayroll
-    app.get('/empPayroll', employeePayroll.findAll);
+    /* // Retrieve all employeespayroll
+     app.get('/empPayroll', EmployeePayroll.findAll);
 
-    // Retrieve a single employeespayroll with employeepayroll
-    app.get('/empPayroll/:employeepayrollId', employeePayroll.findOne);
+     // Retrieve a single employeespayroll with employeepayroll
+     app.get('/empPayroll/:employeepayrollId', EmployeePayroll.findOne);
 
-    // Update a employeespayroll with employeepayroll
-    app.put('/empPayroll/:employeepayrollId', employeePayroll.update);
+     // Update a employeespayroll with employeepayroll
+     app.put('/empPayroll/:employeepayrollId', EmployeePayroll.update);
 
-    // Delete a employeespayroll with employeepayroll
-    app.delete('/empPayroll/:employeepayrollId', employeePayroll.delete);
+     // Delete a employeespayroll with employeepayroll
+     app.delete('/empPayroll/:employeepayrollId', EmployeePayroll.delete);*/
 }
