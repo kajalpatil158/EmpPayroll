@@ -4,22 +4,27 @@ const empData = require('../validation/employeepayroll.js');
 
 const { genSaltSync, hashSync } = require("bcrypt");
 /* @Description- create and save new emp
- * @param-
  * @param res is used to send responce.
+ * @ method- create is use to cewate a employee Data.
+ * For Encryption and Validation hashSync Is Used.
  */
 class EmployeePayroll {
     create = (req, res) => {
-        const empResponce = {}
+        //Veriable Is Created validtion Emp To Validated Emp.
         var validationEmp = empData.validate(req.body);
+
+
+        console.log(validationEmp);
         if (validationEmp.error) {
             return res.status(400).send({
-                message: validationResult.error.message
+                message: validationEmp.error.message
             });
         }
-        //encrypting the Password 
+
         const salt = genSaltSync(10);
         req.body.password = hashSync(req.body.password, salt);
-        let empInfo;
+
+        let empInfo = req.body;
         empService.create(empInfo, (error, validationEmp) => {
             if (error) {
                 logger.error("error occred while creating employee payroll");
@@ -67,27 +72,7 @@ class EmployeePayroll {
                    });
                });
        };
-
-       // Update a employee payroll identified by the employeepayrollId in the request
-       update = (req, res) => {
-           var temp = 0;
-           if (!req.body.firstName) {
-               temp = 1;
-           }
-           if (!req.body.lastName) {
-               temp = 1;
-           }
-           if (!req.body.emailId) {
-               temp = 1;
-           }
-           if (!req.body.password) {
-               temp = 1;
-           }
-           if (temp == 1) {
-               return res.status(400).send({
-                   message: "Your Are Missing Some Data"
-               });
-           }
+      
            // Find employee and update it with the request body
            EmployeePayroll.findByIdAndUpdate(req.params.employeepayrollId, {
                    firstName: req.body.firstName,
