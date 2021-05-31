@@ -11,9 +11,9 @@ module.exports = (app) => {
     // Retrieve a single employeespayroll with employeepayroll
     app.get('/empPayroll/:empId', employeePayroll.findOne);
 
-    /* // Update a employeespayroll with employeepayroll
-     app.put('/empPayroll/:employeepayrollId', EmployeePayroll.update);
+    // Update a employeespayroll with employeepayroll
+    app.put('/empPayroll/:empId', employeePayroll.update);
 
-     // Delete a employeespayroll with employeepayroll
+    /* // Delete a employeespayroll with employeepayroll
      app.delete('/empPayroll/:employeepayrollId', EmployeePayroll.delete);*/
 }

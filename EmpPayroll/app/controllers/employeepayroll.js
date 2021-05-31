@@ -14,8 +14,6 @@ class EmployeePayroll {
         var validationEmp = empData.validate(req.body);
         console.log(validationEmp);
 
-        /* @Description- Check With Validation Emp error Is Erroe Occures Then Gives 400 HTTP Staus Code For 
-        Print Client Side Erro And Provide Some Message With That.*/
         if (validationEmp.error) {
             return res.status(400).send({
                 message: validationEmp.error.message
@@ -25,9 +23,6 @@ class EmployeePayroll {
         //genSaltSync and hashSync Is Used For Encrypt A Data.
         const salt = genSaltSync(10);
         req.body.password = hashSync(req.body.password, salt);
-
-        /* Created A Veriable And Check With A rmpInfo And Validation If Error Occures That Print This Error Message
-        else Provide A Successfully Created Data.*/
 
         let empInfo = req.body;
         empService.create(empInfo, (error, validationEmp) => {
@@ -44,7 +39,10 @@ class EmployeePayroll {
         })
     }
 
-    // Retrieve and return all employee payroll from the database.
+    /* @Description - Find Employee Payroll Data Retrive All Emp Data
+     * @param req Is Used To Send Http Request
+     * @param res Is Used To Take A Http Responce.
+     */
     findAll = (req, res) => {
         empService.findAll((error, empData) => {
             if (error) {
@@ -57,7 +55,10 @@ class EmployeePayroll {
         })
     };
 
-    // Find a single employee payroll by employeepayrollId
+    /* @Description - FindOne Employee Payroll Data Retrive Employee Data By Id
+     * @param req Is Used To Send Http Request
+     * @param res Is Used To Take A Http Responce.
+     */
     findOne = (req, res) => {
             empService.findById(req.params.empId, (error, empData) => {
                 if (error) {
@@ -79,53 +80,50 @@ class EmployeePayroll {
                 }
             })
         }
-        /*      // Find employee and update it with the request body
-            /*    EmployeePayroll.findByIdAndUpdate(req.params.employeepayrollId, {
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName,
-                        emailId: req.body.emailId,
-                        password: req.body.password
-                    }, { new: true })
+        /* @Description - Update Employee Payroll Data Update Emp Data By Id
+         * @param req Is Used To Send Http Request
+         * @param res Is Used To Take A Http Responce.
+         */
+    update = (req, res) => {
+        let newData = req.body;
+        empService.updateByID(req.params.empeId, empData, (error, updatedData) => {
+            if (error) {
+                logger.error("Some Error Occure While Updating Emp Data")
+                if (error.kind === 'ObjectId') {
+                    return res.status(404).send({
+                        message: "Employee Not Finding With Given Id " + req.params.empId
+                    });
+                }
+                return res.status(500).send({
+                    message: "Error Occured At The Time Updation Of Data " + req.params.empId
+                });
+            }
+            res.send({
+                message: "Employee Data updated successfully",
+            })
+        })
+    };
+    /*      // Delete a employee payroll with the specified employeepayrollId in the request
+            /*delete  (req, res)  {
+                EmployeePayroll.findByIdAndRemove(req.params.employeepayrollId)
                     .then(employeepayroll => {
                         if (!employeepayroll) {
                             return res.status(404).send({
                                 message: "Employee payroll id not found " + req.params.employeepayrollId
                             });
                         }
-                        res.send(employeepayroll);
+                        res.send({ message: "employeepayroll data deleted successfully!" });
                     }).catch(err => {
-                        if (err.kind === 'ObjectId') {
+                        if (err.kind === 'ObjectId' || err.name === 'NotFound') {
                             return res.status(404).send({
                                 message: "Employee payroll id not found " + req.params.employeepayrollId
                             });
                         }
                         return res.status(500).send({
-                            message: "Employee payroll id not found " + req.params.employeepayrollId
+                            message: "Could not delete employee payroll data with id " + req.params.employeepayrollId
                         });
                     });
-                };
-
-                // Delete a employee payroll with the specified employeepayrollId in the request
-                /*delete  (req, res)  {
-                    EmployeePayroll.findByIdAndRemove(req.params.employeepayrollId)
-                        .then(employeepayroll => {
-                            if (!employeepayroll) {
-                                return res.status(404).send({
-                                    message: "Employee payroll id not found " + req.params.employeepayrollId
-                                });
-                            }
-                            res.send({ message: "employeepayroll data deleted successfully!" });
-                        }).catch(err => {
-                            if (err.kind === 'ObjectId' || err.name === 'NotFound') {
-                                return res.status(404).send({
-                                    message: "Employee payroll id not found " + req.params.employeepayrollId
-                                });
-                            }
-                            return res.status(500).send({
-                                message: "Could not delete employee payroll data with id " + req.params.employeepayrollId
-                            });
-                        });
-                };*/
+            };*/
 
 
 
