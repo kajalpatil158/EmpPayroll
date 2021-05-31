@@ -8,10 +8,7 @@ class EmpService {
      */
     create = (empData, callBack) => {
         EmpModel.create(empData, (error, data) => {
-            if (error) {
-                return callBack(errror.null);
-            }
-            return callBack(null, data);
+            (error) ? console.log(callBack(error, null)): console.log(callBack(null, data));
         })
     }
 
@@ -21,10 +18,7 @@ class EmpService {
      */
     findAll = (callback) => {
             EmpModel.findAll((error, data) => {
-                if (error) {
-                    return callback(error, null);
-                }
-                return callback(null, data);
+                (error) ? console.log(callBack(error, null)): console.log(callBack(null, data));
             });
         }
         /* @Description - findById method is created.
