@@ -19,5 +19,13 @@ class EmpService {
         });
     }
 
+    findById = (empId, callback) => {
+        EmpModel.findById(empId, (error, data) => {
+            if (error) {
+                return callback(error, null);
+            }
+            return callback(null, data);
+        });
+    }
 }
 module.exports = new EmpService();

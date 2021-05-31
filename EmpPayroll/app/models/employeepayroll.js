@@ -27,13 +27,38 @@ class empModel {
     }
 
     findAll = (callBack) => {
-        empPayrollModel.find({}, (error, data) => {
+        empPayrollModel.find((error, data) => {
             if (error) {
                 return callBack(error, null);
             }
             return callBack(null, data);
         });
     }
+
+    findById = (empId, callback) => {
+        empPayrollModel.findById(empId, (error, data) => {
+            if (error) {
+                return callback(error, null);
+            }
+            return callback(null, data)
+        })
+    }
+
+    updateById = (empId, newData, callback) => {
+        empPayrollModel.findByIdAndUpdate(EmpId, {
+                firstName: newData.firstName,
+                lastName: newData.lastName,
+                email: newData.email,
+                password: newData.password
+            }, { new: true },
+            (error, data) => {
+                if (error) {
+                    return callback(error, null);
+                }
+                return callback(null, data);
+            });
+    }
+
 }
 
 module.exports = new empModel();

@@ -57,75 +57,75 @@ class EmployeePayroll {
         })
     };
 
-    /*// Find a single employee payroll by employeepayrollId
+    // Find a single employee payroll by employeepayrollId
     findOne = (req, res) => {
-        EmployeePayroll.findById(req.params.employeepayrollId)
-            .then(employeepayroll => {
-                if (!employeepayroll) {
-                    return res.status(404).send({
-                        message: " Employee payroll id not found " + req.params.employeepayrollId
+            empService.findById(req.params.empId, (error, empData) => {
+                if (error) {
+                    if (error.kind === 'ObjectId') {
+                        return res.status(404).send({
+                            message: "Employee not found with id " + req.params.empId
+                        });
+                    }
+                    return res.status(500).send({
+                        message: "Error retrieving employee with id " + req.params.empId
                     });
                 }
-                res.send(employeepayroll);
-            }).catch(err => {
-                if (err.kind === 'ObjectId') {
+                if (empData)
+                    res.send(empData);
+                else {
                     return res.status(404).send({
-                        message: "Employee payroll id not found " + req.params.employeepayrollId
+                        message: "Employee not found with id " + req.params.employeeId
                     });
                 }
-                return res.status(500).send({
-                    message: "Employee payroll id not found " + req.params.employeepayrollId
-                });
-            });
-    };
+            })
+        }
+        /*      // Find employee and update it with the request body
+            /*    EmployeePayroll.findByIdAndUpdate(req.params.employeepayrollId, {
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        emailId: req.body.emailId,
+                        password: req.body.password
+                    }, { new: true })
+                    .then(employeepayroll => {
+                        if (!employeepayroll) {
+                            return res.status(404).send({
+                                message: "Employee payroll id not found " + req.params.employeepayrollId
+                            });
+                        }
+                        res.send(employeepayroll);
+                    }).catch(err => {
+                        if (err.kind === 'ObjectId') {
+                            return res.status(404).send({
+                                message: "Employee payroll id not found " + req.params.employeepayrollId
+                            });
+                        }
+                        return res.status(500).send({
+                            message: "Employee payroll id not found " + req.params.employeepayrollId
+                        });
+                    });
+                };
 
-    // Find employee and update it with the request body
-    EmployeePayroll.findByIdAndUpdate(req.params.employeepayrollId, {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            emailId: req.body.emailId,
-            password: req.body.password
-        }, { new: true })
-        .then(employeepayroll => {
-            if (!employeepayroll) {
-                return res.status(404).send({
-                    message: "Employee payroll id not found " + req.params.employeepayrollId
-                });
-            }
-            res.send(employeepayroll);
-        }).catch(err => {
-            if (err.kind === 'ObjectId') {
-                return res.status(404).send({
-                    message: "Employee payroll id not found " + req.params.employeepayrollId
-                });
-            }
-            return res.status(500).send({
-                message: "Employee payroll id not found " + req.params.employeepayrollId
-            });
-        });
-    };
-
-    // Delete a employee payroll with the specified employeepayrollId in the request
-    /*delete  (req, res)  {
-        EmployeePayroll.findByIdAndRemove(req.params.employeepayrollId)
-            .then(employeepayroll => {
-                if (!employeepayroll) {
-                    return res.status(404).send({
-                        message: "Employee payroll id not found " + req.params.employeepayrollId
-                    });
-                }
-                res.send({ message: "employeepayroll data deleted successfully!" });
-            }).catch(err => {
-                if (err.kind === 'ObjectId' || err.name === 'NotFound') {
-                    return res.status(404).send({
-                        message: "Employee payroll id not found " + req.params.employeepayrollId
-                    });
-                }
-                return res.status(500).send({
-                    message: "Could not delete employee payroll data with id " + req.params.employeepayrollId
-                });
-            });
-    };*/
+                // Delete a employee payroll with the specified employeepayrollId in the request
+                /*delete  (req, res)  {
+                    EmployeePayroll.findByIdAndRemove(req.params.employeepayrollId)
+                        .then(employeepayroll => {
+                            if (!employeepayroll) {
+                                return res.status(404).send({
+                                    message: "Employee payroll id not found " + req.params.employeepayrollId
+                                });
+                            }
+                            res.send({ message: "employeepayroll data deleted successfully!" });
+                        }).catch(err => {
+                            if (err.kind === 'ObjectId' || err.name === 'NotFound') {
+                                return res.status(404).send({
+                                    message: "Employee payroll id not found " + req.params.employeepayrollId
+                                });
+                            }
+                            return res.status(500).send({
+                                message: "Could not delete employee payroll data with id " + req.params.employeepayrollId
+                            });
+                        });
+                };*/
 
 
 
