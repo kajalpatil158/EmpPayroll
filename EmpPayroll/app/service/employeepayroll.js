@@ -9,5 +9,15 @@ class EmpService {
             return callBack(null, data);
         })
     }
+
+    findAll = (callback) => {
+        EmpModel.findAll((error, data) => {
+            if (error) {
+                return callback(error, null);
+            }
+            return callback(null, data);
+        });
+    }
+
 }
 module.exports = new EmpService();

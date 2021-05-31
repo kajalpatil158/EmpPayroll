@@ -25,6 +25,15 @@ class empModel {
             return callBack(null, data);
         });
     }
+
+    findAll = (callBack) => {
+        empPayrollModel.find({}, (error, data) => {
+            if (error) {
+                return callBack(error, null);
+            }
+            return callBack(null, data);
+        });
+    }
 }
 
 module.exports = new empModel();
