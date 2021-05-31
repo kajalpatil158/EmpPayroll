@@ -51,5 +51,18 @@ class EmpService {
             return callback(null, data);
         })
     }
+
+    /* @Description - Delete method is created.
+     * @param- empData send from controller
+     * @return callback is used to callback controller
+     */
+    deleteById = (empId, callback) => {
+        EmpModel.deleteById(empId, error => {
+            if (error) {
+                return callback(error);
+            }
+            return callback(null);
+        });
+    }
 }
 module.exports = new EmpService();

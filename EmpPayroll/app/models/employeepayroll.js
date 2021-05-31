@@ -11,7 +11,6 @@ const EmployeeSchema = new mongoose.Schema({
 
 const empPayrollModel = mongoose.model('Employee', EmployeeSchema);
 class empModel {
-
     /* @Description - Create method Created To Save Data
      * @param empData is data sent from Service
      * @return callback is used to callback Services includes error message or data
@@ -24,10 +23,7 @@ class empModel {
                 password: empData.password
             });
             employee.save((error, data) => {
-                if (error) {
-                    return callBack(error, null);
-                }
-                return callBack(null, data);
+                (error) ? console.log(callBack(error, null)): console.log(callBack(null, data));
             });
         }
         /* @Description - FindAll method Created To Find A Employee Payroll Data.
@@ -59,20 +55,30 @@ class empModel {
          * @return callback is used to callback Services includes error message or data
          */
     updateById = (empId, newData, callback) => {
-        empPayrollModel.findByIdAndUpdate(empId, {
-                firstName: newData.firstName,
-                lastName: newData.lastName,
-                email: newData.email,
-                password: newData.password
-            }, { new: true },
-            (error, data) => {
-                if (error) {
-                    return callback(error, null);
-                }
-                return callback(null, data);
-            });
+            empPayrollModel.findByIdAndUpdate(empId, {
+                    firstName: newData.firstName,
+                    lastName: newData.lastName,
+                    email: newData.email,
+                    password: newData.password
+                }, { new: true },
+                (error, data) => {
+                    if (error) {
+                        return callback(error, null);
+                    }
+                    return callback(null, data);
+                });
+        }
+        /* @Description - Update method Created To Updated A Data
+         * @param data sent from Service
+         * @return callback is used to callback Services includes error message or data
+         */
+    deleteById = (empID, callback) => {
+        empPayrollModel.findByIdAndRemove(empID, error => {
+            if (error) {
+                return callback(error);
+            }
+            return callback(null)
+        })
     }
-
 }
-
 module.exports = new empModel();

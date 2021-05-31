@@ -14,6 +14,6 @@ module.exports = (app) => {
     // Update a employeespayroll with employeepayroll
     app.put('/empPayroll/:empId', employeePayroll.update);
 
-    /* // Delete a employeespayroll with employeepayroll
-     app.delete('/empPayroll/:employeepayrollId', EmployeePayroll.delete);*/
+    // Delete a employeespayroll with employeepayroll
+    app.delete('/empPayroll/:empId', employeePayroll.delete);
 }

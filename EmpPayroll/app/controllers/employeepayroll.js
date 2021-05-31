@@ -103,29 +103,24 @@ class EmployeePayroll {
             })
         })
     };
-    /*      // Delete a employee payroll with the specified employeepayrollId in the request
-            /*delete  (req, res)  {
-                EmployeePayroll.findByIdAndRemove(req.params.employeepayrollId)
-                    .then(employeepayroll => {
-                        if (!employeepayroll) {
-                            return res.status(404).send({
-                                message: "Employee payroll id not found " + req.params.employeepayrollId
-                            });
-                        }
-                        res.send({ message: "employeepayroll data deleted successfully!" });
-                    }).catch(err => {
-                        if (err.kind === 'ObjectId' || err.name === 'NotFound') {
-                            return res.status(404).send({
-                                message: "Employee payroll id not found " + req.params.employeepayrollId
-                            });
-                        }
-                        return res.status(500).send({
-                            message: "Could not delete employee payroll data with id " + req.params.employeepayrollId
-                        });
+    /* @Description - Delete Employee Payroll Data Update Emp Data By Id
+     * @param req Is Used To Send Http Request
+     * @param res Is Used To Take A Http Responce.
+     */
+    delete = (req, res) => {
+        empService.deleteById(req.params.empId, error => {
+            if (error) {
+                if (error.kind === 'ObjectId') {
+                    return res.status(404).send({
+                        message: "Employee payroll id not found " + req.params.empId
                     });
-            };*/
-
-
-
+                }
+                return res.status(500).send({
+                    message: "Employee payroll id not found" + req.params.emId
+                });
+            }
+            res.send({ message: "Employee Deleted Successfully!!!" });
+        })
+    };
 }
 module.exports = new EmployeePayroll();
