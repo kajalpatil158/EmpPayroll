@@ -8,7 +8,7 @@ class EmpService {
      */
     create = (empData, callBack) => {
         EmpModel.create(empData, (error, data) => {
-            (error) ? console.log(callBack(error, null)): console.log(callBack(null, data));
+            return (error) ? callBack(error, null) : callBack(null, data);
         })
     }
 
@@ -18,7 +18,7 @@ class EmpService {
      */
     findAll = (callback) => {
             EmpModel.findAll((error, data) => {
-                (error) ? console.log(callBack(error, null)): console.log(callBack(null, data));
+                return (error) ? callBack(error, null) : callBack(null, data);
             });
         }
         /* @Description - findById method is created.
@@ -27,10 +27,7 @@ class EmpService {
          */
     findById = (empId, callback) => {
             EmpModel.findById(empId, (error, data) => {
-                if (error) {
-                    return callback(error, null);
-                }
-                return callback(null, data);
+                return (error) ? callBack(error, null) : callBack(null, data);
             });
         }
         /* @Description - updateById method is created.
@@ -39,10 +36,7 @@ class EmpService {
          */
     updateByID = (empId, newData, callback) => {
         EmpModel.updateById(empId, newData, (error, data) => {
-            if (error) {
-                return callback(error, null);
-            }
-            return callback(null, data);
+            return (error) ? callBack(error, null) : callBack(null, data);
         })
     }
 
@@ -52,10 +46,7 @@ class EmpService {
      */
     deleteById = (empId, callback) => {
         EmpModel.deleteById(empId, error => {
-            if (error) {
-                return callback(error);
-            }
-            return callback(null);
+            return (error) ? callBack(error, null) : callBack(null, data);
         });
     }
 }

@@ -23,7 +23,7 @@ class empModel {
                 password: empData.password
             });
             employee.save((error, data) => {
-                (error) ? console.log(callBack(error, null)): console.log(callBack(null, data));
+                return (error) ? callBack(error, null) : callBack(null, data);
             });
         }
         /* @Description - FindAll method Created To Find A Employee Payroll Data.
@@ -32,10 +32,7 @@ class empModel {
          */
     findAll = (callBack) => {
             empPayrollModel.find((error, data) => {
-                if (error) {
-                    return callBack(error, null);
-                }
-                return callBack(null, data);
+                return (error) ? callBack(error, null) : callBack(null, data);
             });
         }
         /* @Description - FindById method Created To Finding Data By Id.
@@ -44,11 +41,8 @@ class empModel {
          */
     findById = (empId, callback) => {
             empPayrollModel.findById(empId, (error, data) => {
-                if (error) {
-                    return callback(error, null);
-                }
-                return callback(null, data)
-            })
+                return (error) ? callBack(error, null) : callBack(null, data);
+            });
         }
         /* @Description - Update method Created To Updated A Data
          * @param data sent from Service
@@ -62,10 +56,7 @@ class empModel {
                     password: newData.password
                 }, { new: true },
                 (error, data) => {
-                    if (error) {
-                        return callback(error, null);
-                    }
-                    return callback(null, data);
+                    return (error) ? callBack(error, null) : callBack(null, data);
                 });
         }
         /* @Description - Update method Created To Updated A Data
@@ -74,10 +65,7 @@ class empModel {
          */
     deleteById = (empID, callback) => {
         empPayrollModel.findByIdAndRemove(empID, error => {
-            if (error) {
-                return callback(error);
-            }
-            return callback(null)
+            return (error) ? callBack(error, null) : callBack(null, data);
         })
     }
 }
