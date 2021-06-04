@@ -122,8 +122,8 @@ class EmployeePayroll {
     };
 
     login = (req, res) => {
-        let email = req.body;
-        empService.getUserByEmail(email, (error, data) => {
+        let userInfo = req.body;
+        empService.getUserByEmail(userInfo, (error, data) => {
             if (error) {
                 return res.status(404).send({
                     success: 0,
