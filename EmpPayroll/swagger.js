@@ -2,8 +2,8 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
     info: {
-        title: 'My API',
-        description: 'Description',
+        title: 'Employee Payroll Schema',
+        description: 'Employee Registration Data',
     },
     host: 'localhost:7000',
     schemes: ['http'],

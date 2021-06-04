@@ -20,7 +20,4 @@ module.exports = (app) => {
     // Login JWT Authentication
     app.post('/login', employeePayroll.login);
 
-    // Use a Swagger To Generate UI
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 }
