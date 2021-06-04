@@ -1,10 +1,11 @@
 const express = require('express');
 const morgan = require('morgan');
-const swaggerAutogen = require('swagger-autogen')();
 
-const swaggerAutogen: (outputFile: < string > , endpointsFiles: < Array of string > , data: < object > ) => Promise < any >
-    // create express app
-    const app = express();
+// create express app
+const app = express();
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
 
 require('dotenv').config();
 
