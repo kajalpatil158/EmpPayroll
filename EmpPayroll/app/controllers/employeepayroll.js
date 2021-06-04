@@ -1,8 +1,8 @@
 const empService = require('../service/employeepayroll');
 const empPayroll = require('../models/employeepayroll.js');
 const empData = require('../validation/employeepayroll.js');
-
 const { genSaltSync, hashSync } = require("bcrypt");
+
 /* @Description- create and save new emp
  * @param res is used to send responce.
  * @ method- create is use to cewate a employee Data.
@@ -21,8 +21,6 @@ class EmployeePayroll {
         }
 
         //genSaltSync and hashSync Is Used For Encrypt A Data.
-        const salt = genSaltSync(10);
-        req.body.password = hashSync(req.body.password, salt);
 
         let empInfo = req.body;
         empService.create(empInfo, (error, validationEmp) => {
@@ -122,5 +120,22 @@ class EmployeePayroll {
             res.send({ message: "Employee Deleted Successfully!!!" });
         })
     };
+
+    login = (req, res) => {
+        let email = req.body;
+        empService.getUserByEmail(email, (error, data) => {
+            if (error) {
+                return res.status(404).send({
+                    success: 0,
+                    message: error
+                });
+            }
+            res.send({
+                succes: 1,
+                message: "logged in successfully",
+                token: data
+            });
+        })
+    }
 }
 module.exports = new EmployeePayroll();

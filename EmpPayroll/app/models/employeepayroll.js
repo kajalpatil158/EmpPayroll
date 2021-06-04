@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 //Created Employee Schema 
 const EmployeeSchema = new mongoose.Schema({
     firstName: String,
@@ -11,15 +12,15 @@ const EmployeeSchema = new mongoose.Schema({
 
 const empPayrollModel = mongoose.model('Employee', EmployeeSchema);
 class empModel {
-    /* @Description - Create method Created To Save Data
-     * @param empData is data sent from Service
+    /* @Description - Create method Created To Save Data.
+     * @param empData is data sent from Service.
      * @return callback is used to callback Services includes error message or data
      */
     create = (empData, callBack) => {
             const employee = new empPayrollModel({
                 firstName: empData.firstName,
                 lastName: empData.lastName,
-                email: empData.email,
+                emailId: empData.emailId,
                 password: empData.password
             });
             employee.save((error, data) => {
@@ -66,6 +67,16 @@ class empModel {
     deleteById = (empID, callback) => {
         empPayrollModel.findByIdAndRemove(empID, error => {
             return (error) ? callBack(error, null) : callBack(null, data);
+        })
+    }
+
+    getUserByEmail = (email, callback) => {
+        empPayrollModel.findOne({ "emailId": email.emailId }, (error, data) => {
+            console.log(email.emailId);
+            if (error) {
+                return callback(error, null)
+            }
+            return (!data) ? callback("User Not Exist ", null) : callback(null, data);
         })
     }
 }

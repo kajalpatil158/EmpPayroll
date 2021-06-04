@@ -16,4 +16,6 @@ module.exports = (app) => {
 
     // Delete a employeespayroll with employeepayroll
     app.delete('/empPayroll/:empId', employeePayroll.delete);
+
+    app.post('/login', employeePayroll.login);
 }
