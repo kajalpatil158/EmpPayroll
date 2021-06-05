@@ -4,16 +4,11 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "mocha --timeout 10000",
+        "start": "nodemon server.js",
+        "test": "mocha ",
         "swagger-autogen": "node ./swagger.js"
     },
-    "devDependencies": {
-        "chai": "^3.5.0",
-        "chai-http": "^2.0.1",
-        "mocha": "^2.5.3",
-        "superagent": "^6.1.0",
-        "supertest": "^6.1.3"
-    },
+
     "author": "",
     "license": "ISC",
     "dependencies": {
@@ -28,6 +23,15 @@
         "mongoose": "^5.12.12",
         "nodemon": "^2.0.7",
         "swagger-ui-express": "^4.1.6",
-        "winston": "^3.3.3"
+        "winston": "^3.3.3",
+        "winston-mongodb": "^5.0.7"
+    },
+    "devDependencies": {
+        "chai": "^4.3.4",
+        "chai-http": "^4.3.0",
+        "mocha": "^8.4.0",
+        "nodemon": "^2.0.7"
+
     }
+
 }

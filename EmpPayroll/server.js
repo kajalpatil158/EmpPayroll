@@ -33,5 +33,5 @@ require('./app/routes/employeepayroll.js')(app);
 // listen for requests
 const port = 7000
 app.listen(port, () => {
-    logger.info('info', 'Application Is Listening On Port ${port}');
+    logger.error('Application Is Listening On Port ${port}');
 });
