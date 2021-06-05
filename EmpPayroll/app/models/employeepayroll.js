@@ -7,8 +7,6 @@ const EmployeeSchema = new mongoose.Schema({
     emailId: String,
     password: String
 }, {
-    //versionKey to false since it’s useless for the purpose of the App
-    versionKey: false,
     timestamps: true
 });
 

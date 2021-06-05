@@ -1,6 +1,6 @@
 const empService = require('../service/employeepayroll');
 const empPayroll = require('../models/employeepayroll.js');
-const empData = require('../validation/employeepayroll.js');
+const empData = require('../middleware/employeepayroll.js');
 const { genSaltSync, hashSync } = require("bcrypt");
 
 /* @Description- create and save new emp
