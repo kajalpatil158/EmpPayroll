@@ -1,5 +1,5 @@
 const employeePayroll = require('../controllers/employeepayroll.js');
-const validation = require('../middleware/jwtvalidation.js');
+const validation = require('../middleware/helper.js');
 module.exports = (app) => {
 
     // Create a new employeespayroll
