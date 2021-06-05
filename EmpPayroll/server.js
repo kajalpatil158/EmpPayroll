@@ -10,6 +10,7 @@ require('dotenv').config();
 
 //Connect to DB
 const dbconnection = require('./config/dbconfig.js');
+const logger = require('./config/logger');
 dbconnection();
 
 // parse requests 
@@ -32,5 +33,5 @@ require('./app/routes/employeepayroll.js')(app);
 // listen for requests
 const port = 7000
 app.listen(port, () => {
-    console.log('Application Is Listening On Port ', +port);
+    logger.info('info', 'Application Is Listening On Port ${port}');
 });
