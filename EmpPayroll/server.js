@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const app = express();
 
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger-output');
+const swaggerDocument = require('./swagger-output.json');
 
 require('dotenv').config();
 
@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
     res.json(`Well Come In Employee Payroll Application!!!!`);
 });
 
+//To Dispaly swgger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Require Employee routes
