@@ -4,8 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "SET NODE_ENV=dev && node server.js",
-        "test": "node_modules/mocha/bin/mocha ./tests",
+        "test": "mocha --timeout 10000",
         "swagger-autogen": "node ./swagger.js"
     },
     "devDependencies": {
@@ -24,7 +23,9 @@
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "joi": "^17.4.0",
+        "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.12.12",
-        "nodemon": "^2.0.7"
+        "nodemon": "^2.0.7",
+        "swagger-ui-express": "^4.1.6"
     }
 }
