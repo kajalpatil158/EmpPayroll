@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
  * return mongoose connection
  */
 function dbconnection() {
-
     mongoose.promise;
     const url = 'mongodb://localhost:27017/empPayroll';
     mongoose.connect(url, {

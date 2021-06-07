@@ -3,7 +3,7 @@ const validation = require('../middleware/helper.js');
 module.exports = (app) => {
 
     // Create a new employeespayroll
-    app.post('/empPayroll', validation.checkToken, employeePayroll.create);
+    app.post('/empPayroll', employeePayroll.create);
 
     // Retrieve all employeespayroll
     app.get('/empPayroll', validation.checkToken, employeePayroll.findAll);
@@ -19,5 +19,13 @@ module.exports = (app) => {
 
     // Login JWT Authentication
     app.post('/login', employeePayroll.login);
+
+}
+
+function add(a, b) {
+    return a + b;
+}
+
+function name(params) {
 
 }

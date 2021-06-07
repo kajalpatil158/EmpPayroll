@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "start": "nodemon server.js",
-        "test": "mocha ",
+        "test": "node_modules/mocha/bin/mocha ./tests",
         "swagger-autogen": "node ./swagger.js"
     },
     "author": "Kajal Patil",
@@ -30,6 +30,7 @@
         "chai-http": "^4.3.0",
         "mocha": "^8.4.0",
         "nodemon": "^2.0.7",
+        "superagent": "^6.1.0",
         "supertest": "^6.1.3"
     }
 }
