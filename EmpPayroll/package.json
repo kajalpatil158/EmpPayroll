@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "start": "nodemon server.js",
-        "test": "node_modules/mocha/bin/mocha ./tests",
+        "test": "mocha",
         "swagger-autogen": "node ./swagger.js"
     },
     "author": "Kajal Patil",

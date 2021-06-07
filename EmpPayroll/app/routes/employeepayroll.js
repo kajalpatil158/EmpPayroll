@@ -21,11 +21,3 @@ module.exports = (app) => {
     app.post('/login', employeePayroll.login);
 
 }
-
-function add(a, b) {
-    return a + b;
-}
-
-function name(params) {
-
-}

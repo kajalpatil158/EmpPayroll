@@ -131,8 +131,8 @@ class EmployeePayroll {
                 });
             }
             res.send({
-                succes: true,
-                message: "logged in successfully",
+                success: true,
+                message: "User Login Successfull!!",
                 token: data
             });
         })
