@@ -14,6 +14,6 @@ const endpointsFiles = ['./app/routes/employeepayroll.js'];
 
 /* NOTE: if you use the express Router, you must pass in the 
    'endpointsFiles' only the root file where the route starts,
-   such as index.js, app.js, routes.js, ... */
+   such as server.js, ... */
 
 swaggerAutogen(outputFile, endpointsFiles, doc);
