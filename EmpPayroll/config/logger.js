@@ -11,15 +11,12 @@ const logger = createLogger({
             level: 'info',
             format: format.combine(format.timestamp(), format.json())
         }),
-        new transports.MongoDB({
+        new transports.File({
+            filename: 'error.log',
             level: 'error',
-            db: 'mongodb://localhost:27017/empPayroll',
-            options: {
-                useUnifiedTopology: true
-            },
-            collection: 'Employee',
             format: format.combine(format.timestamp(), format.json())
-        })
+        }),
+
     ]
 })
 
