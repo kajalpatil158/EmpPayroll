@@ -34,10 +34,21 @@
             "get": {
                 "tags": [],
                 "description": "",
-                "parameters": [],
+                "parameters": [{
+                    "name": "employeeId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
                 "responses": {
+                    "200": {
+                        "description": "successfull"
+                    },
                     "400": {
                         "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     },
                     "404": {
                         "description": "Not Found"
@@ -45,7 +56,10 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [{
+                    "JWT": []
+                }]
             }
         },
         "/empPayroll/{empId}": {

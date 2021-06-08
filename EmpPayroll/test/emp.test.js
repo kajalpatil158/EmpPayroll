@@ -62,4 +62,47 @@ describe('POST/empPayroll', () => {
                 done();
             });
     });
+
+    let token = '';
+    console.log(token);
+    beforeEach(done => {
+        chai
+            .request(server)
+            .post("/login")
+            .send(emptest.data1)
+            .end((err, res) => {
+                token = res.body.token;
+                res.should.have.status(200);
+                done();
+            });
+    });
+
+    describe("/GET /findAll", () => {
+        it("Retrive Employee Data With Valid Token ", done => {
+            console.log(token);
+            chai
+                .request(server)
+                .get("/empPayroll")
+                .set('Authorization', 'bearar ' + token)
+                .end((err, response) => {
+                    response.should.have.status(200);
+                    //response.body.should.have.property('message').eq("Getted all employees data!")
+                    response.body.should.have.property('empData')
+                    done();
+                });
+        });
+
+        it("It should Not Data With Invalid Id", done => {
+            chai
+                .request(server)
+                .get("/empPayroll")
+                .set('Authorization', 'bearar ' + token.slice(15))
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.have.property('success').eq(false);
+                    res.body.should.have.property('message').eq("Invalid token");
+                    done();
+                });
+        });
+    });
 });
