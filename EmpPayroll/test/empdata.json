@@ -2,6 +2,13 @@
     "data1": {
         "emailId": "rutu@gmail.com",
         "password": "jklaa12"
-
+    },
+    "data2": {
+        "emailId": "avibb@gmail.com",
+        "password": "avi123"
+    },
+    "data3": {
+        "emailId": "sweety@gmail.com",
+        "password": "sweety123"
     }
 }
