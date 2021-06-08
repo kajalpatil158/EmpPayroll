@@ -9,19 +9,28 @@ let data = fs.readFileSync('test/empdata.json');
 let emptest = JSON.parse(data);
 
 describe('POST/login', () => {
-    it('Post Registration', (done) => {
-        const Registration = {
-            "emailId": "rutu@gmail.com",
-            "password": "jklaa12"
-        };
+    it('Post To New Login Emp Data', (done) => {
+        const empData = emptest.data1;
         chai.request(server)
             .post('/login')
-            .send(Registration)
+            .send(empData)
             .end((error, res) => {
                 res.should.have.status(200);
                 res.body.should.be.property('success').eq(true);
                 res.body.should.be.property('message').eq("User Login Successfull!!");
                 res.body.should.be.property('token');
+                done();
+            });
+    });
+
+    it('Post data1 And Gives Error 404', (done) => {
+        const empData = emp.data2;
+        chai.request(server)
+            .post('/login')
+            .send(empData)
+            .end((error, res) => {
+                res.should.have.status(404);
+                res.body.should.be.property('success').eq(false);
                 done();
             });
     });
