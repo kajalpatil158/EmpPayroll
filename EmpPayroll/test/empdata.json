@@ -8,7 +8,21 @@
         "password": "avi123"
     },
     "data3": {
-        "emailId": "sweety@gmail.com",
-        "password": "sweety123"
+        "firstName": "Rucha",
+        "lastName": "Tavde",
+        "emailId": "rucha@gmail.com",
+        "password": "rucha123"
+    },
+    "data4": {
+        "firstName": "Rucha",
+        "lastName": "Tavde",
+        "emailId": "rucha@gmail.com"
+    },
+    "data5": {
+        "emailId": "avani00@gmail.com",
+        "password": "zxc1234"
+    },
+    "data6": {
+
     }
 }

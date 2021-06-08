@@ -36,7 +36,7 @@ describe('POST/login', () => {
     });
 });
 
-describe('POST/add', () => {
+describe('POST/empPayroll', () => {
     it('Post emp data', (done) => {
         const empData = emptest.data3;
         chai.request(server)
@@ -45,7 +45,20 @@ describe('POST/add', () => {
             .end((error, res) => {
                 res.should.have.status(200);
                 res.body.should.be.property('success').eq(true);
-                res.body.should.be.property('message').eq("emp data added successfully!");
+                res.body.should.be.property('message').eq("Employee Payroll Is Added");
+                done();
+            });
+    });
+
+    it('It should POST a  employee data', (done) => {
+        const empData = emptest.data4;
+        chai.request(server)
+            .post('/empPayroll')
+            .send(empData)
+            .end((error, res) => {
+                res.should.have.status(400);
+                res.body.should.be.property('success').eq(false);
+                res.body.should.be.property('message')
                 done();
             });
     });
