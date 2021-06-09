@@ -16,6 +16,7 @@ class EmployeePayroll {
 
         if (validationEmp.error) {
             return res.status(400).send({
+                success: false,
                 message: validationEmp.error.message
             });
         }
@@ -29,10 +30,12 @@ class EmployeePayroll {
             if (error) {
                 //logger.error("error occred while creating employee payroll");
                 return res.status(500).send({
+                    success: false,
                     message: 'error occure while creating employee payroll'
                 });
             }
             res.send({
+                success: true,
                 message: "Employee Payroll Is Added",
                 data: validationEmp
             })
@@ -46,12 +49,16 @@ class EmployeePayroll {
     findAll = (req, res) => {
         empService.findAll((error, empData) => {
             if (error) {
-                logger.error("Error Occure While Retriving A Data")
-                return res.status(500).send({
-                    message: "Error Occure While Retriving A Data"
-                });
+                return res.status(404).send({
+                    success: false,
+                    message: "some error is occurred!"
+                })
             }
-            res.send(empData)
+            res.send({
+                success: true,
+                message: "Getted all employees data!",
+                data: empData
+            })
         })
     };
 
@@ -71,13 +78,10 @@ class EmployeePayroll {
                         message: "Error retrieving employee with id " + req.params.empId
                     });
                 }
-                if (empData)
-                    res.send(empData);
-                else {
-                    return res.status(404).send({
-                        message: "Employee not found with id " + req.params.employeeId
-                    });
-                }
+                res.send({
+                    success: true,
+                    data: data
+                })
             })
         }
         /* @Description - Update Employee Payroll Data Update Emp Data By Id

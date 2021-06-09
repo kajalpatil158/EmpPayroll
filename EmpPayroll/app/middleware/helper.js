@@ -7,7 +7,7 @@ module.exports = {
             jwt.verify(token, "abc123", (err, decoded) => {
                 if (err) {
                     return res.status(400).send({
-                        success: 0,
+                        success: false,
                         message: "Token Expire"
                     });
                 } else {
@@ -17,7 +17,7 @@ module.exports = {
             });
         } else {
             return res.status(404).send({
-                success: 0,
+                success: false,
                 message: "Access Denied!, Unauthorised User "
             });
         }

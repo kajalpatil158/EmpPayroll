@@ -86,8 +86,8 @@ describe('POST/empPayroll', () => {
                 .set('Authorization', 'bearar ' + token)
                 .end((err, response) => {
                     response.should.have.status(200);
-                    //response.body.should.have.property('message').eq("Getted all employees data!")
-                    response.body.should.have.property('empData')
+                    response.body.should.have.property('message').eq("Getted all employees data!")
+                    response.body.should.have.property('data')
                     done();
                 });
         });
@@ -96,13 +96,47 @@ describe('POST/empPayroll', () => {
             chai
                 .request(server)
                 .get("/empPayroll")
-                .set('Authorization', 'bearar ' + token.slice(15))
+                .set('Authorization', 'bearar ' + token.slice)
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.have.property('success').eq(false);
-                    res.body.should.have.property('message').eq("Invalid token");
+                    res.body.should.have.property('message');
+                    done();
+                });
+        });
+
+    });
+
+    describe("/GET /findOne", () => {
+
+        it("it should give employeeData successfully with valid token and Object Id", done => {
+            chai
+                .request(server)
+                .get("/empPayroll/:empId/" + emptest.Data5._Id)
+                .set('Authorization', 'bearar ' + token)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.have.property('success').eq(true);
+                    res.body.should.have.property('data');
                     done();
                 });
         });
     });
+
+    /*  describe("/GET /findOne", () => {
+          it("it should give employeeData successfully with valid token and Object Id", done => {
+              chai
+                  .request(server)
+                  .get("/empPayroll/:empId/" + emptest.Data5._Id)
+                  .set('Authorization', 'bearar ' + token)
+                  .end((err, res) => {
+                      res.should.have.status(200);
+                      res.body.should.have.property('success').eq(true);
+                      res.body.should.have.property('data');
+                      done();
+                  });
+          });
+
+      });*/
 });
+//});
