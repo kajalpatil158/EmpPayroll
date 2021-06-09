@@ -112,7 +112,7 @@ describe('POST/empPayroll', () => {
             chai
                 .request(server)
                 .get("/empPayroll/" + emptest.data5.Id)
-                .set('Authorization', 'bearar ' + token)
+                .set('Authorization', 'bearer ' + token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.have.property('success').eq(true);
@@ -120,22 +120,35 @@ describe('POST/empPayroll', () => {
                     done();
                 });
         });
+        it("it not should give employeeData  with valid token and invalid and Object Id ", done => {
+
+            chai
+                .request(server)
+                .get("/find/" + emptest.data6.Id)
+                .set('Authorization', 'bearar ' + token)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.have.property('success').eq(false);
+                    done();
+                });
+        });
     });
-
-    /*  describe("/GET /findOne", () => {
-          it("it should give employeeData successfully with valid token and Object Id", done => {
-              chai
-                  .request(server)
-                  .get("/empPayroll/:empId/" + emptest.Data5._Id)
-                  .set('Authorization', 'bearar ' + token)
-                  .end((err, res) => {
-                      res.should.have.status(200);
-                      res.body.should.have.property('success').eq(true);
-                      res.body.should.have.property('data');
-                      done();
-                  });
-          });
-
-      });*/
 });
+
+/*  describe("/GET /findOne", () => {
+      it("it should give employeeData successfully with valid token and Object Id", done => {
+          chai
+              .request(server)
+              .get("/empPayroll/:empId/" + emptest.Data5._Id)
+              .set('Authorization', 'bearar ' + token)
+              .end((err, res) => {
+                  res.should.have.status(200);
+                  res.body.should.have.property('success').eq(true);
+                  res.body.should.have.property('data');
+                  done();
+              });
+      });
+
+  });*/
+//});
 //});
