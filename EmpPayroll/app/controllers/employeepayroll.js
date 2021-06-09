@@ -99,6 +99,7 @@ class EmployeePayroll {
                     message: "Error Occured At The Time Updation Of Data " + req.params.empId
                 });
             }
+
             res.send({
                 message: "Employee Data updated successfully",
             })
@@ -120,7 +121,10 @@ class EmployeePayroll {
                     message: "Employee payroll id not found" + req.params.emId
                 });
             }
-            res.send({ message: "Employee Deleted Successfully!!!" });
+            res.send({
+                success: true,
+                data: empData
+            })
         })
     };
 

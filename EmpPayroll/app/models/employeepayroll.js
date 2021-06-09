@@ -49,7 +49,7 @@ class empModel {
          * @param data sent from Service
          * @return callback is used to callback Services includes error message or data
          */
-    updateById = (empId, newData, callback) => {
+    updateById = (newData, empId, callBack) => {
             empPayrollModel.findByIdAndUpdate(empId, {
                     firstName: newData.firstName,
                     lastName: newData.lastName,
@@ -57,7 +57,11 @@ class empModel {
                     password: newData.password
                 }, { new: true },
                 (error, data) => {
-                    return (error) ? callBack(error, null) : callBack(null, data);
+                    if (error) {
+                        return callBack(error, null);
+                    } else {
+                        return callBack(null, data);
+                    }
                 });
         }
         /* @Description - Update method Created To Updated A Data

@@ -37,132 +37,127 @@ describe('POST/login', () => {
 });
 
 describe('POST/empPayroll', () => {
-            it('Post emp data', (done) => {
-                const empData = emptest.data3;
-                chai.request(server)
-                    .post('/empPayroll')
-                    .send(empData)
-                    .end((error, res) => {
-                        res.should.have.status(200);
-                        res.body.should.be.property('success').eq(true);
-                        res.body.should.be.property('message').eq("Employee Payroll Is Added");
-                        done();
-                    });
+    it('Post emp data', (done) => {
+        const empData = emptest.data3;
+        chai.request(server)
+            .post('/empPayroll')
+            .send(empData)
+            .end((error, res) => {
+                res.should.have.status(200);
+                res.body.should.be.property('success').eq(true);
+                res.body.should.be.property('message').eq("Employee Payroll Is Added");
+                done();
             });
+    });
 
-            it('It should POST a  employee data', (done) => {
-                const empData = emptest.data4;
-                chai.request(server)
-                    .post('/empPayroll')
-                    .send(empData)
-                    .end((error, res) => {
-                        res.should.have.status(400);
-                        res.body.should.be.property('success').eq(false);
-                        res.body.should.be.property('message')
-                        done();
-                    });
+    it('It should POST a  employee data', (done) => {
+        const empData = emptest.data4;
+        chai.request(server)
+            .post('/empPayroll')
+            .send(empData)
+            .end((error, res) => {
+                res.should.have.status(400);
+                res.body.should.be.property('success').eq(false);
+                res.body.should.be.property('message')
+                done();
             });
+    });
 
-            let token = '';
+    let token = '';
+    console.log(token);
+    beforeEach(done => {
+        chai
+            .request(server)
+            .post("/login")
+            .send(emptest.data1)
+            .end((err, res) => {
+                token = res.body.token;
+                res.should.have.status(200);
+                done();
+            });
+    });
+
+    describe("/GET /findAll", () => {
+        it("Retrive Employee Data With Valid Token ", done => {
             console.log(token);
-            beforeEach(done => {
-                chai
-                    .request(server)
-                    .post("/login")
-                    .send(emptest.data1)
-                    .end((err, res) => {
-                        token = res.body.token;
-                        res.should.have.status(200);
-                        done();
-                    });
-            });
-
-            describe("/GET /findAll", () => {
-                it("Retrive Employee Data With Valid Token ", done => {
-                    console.log(token);
-                    chai
-                        .request(server)
-                        .get("/empPayroll")
-                        .set('Authorization', 'bearar ' + token)
-                        .end((err, response) => {
-                            response.should.have.status(200);
-                            response.body.should.have.property('message').eq("Getted all employees data!")
-                            response.body.should.have.property('data')
-                            done();
-                        });
+            chai
+                .request(server)
+                .get("/empPayroll")
+                .set('Authorization', 'bearar ' + token)
+                .end((err, response) => {
+                    response.should.have.status(200);
+                    response.body.should.have.property('message').eq("Getted all employees data!")
+                    response.body.should.have.property('data')
+                    done();
                 });
+        });
 
-                it("It should Not Data With Invalid Id", done => {
-                    chai
-                        .request(server)
-                        .get("/empPayroll")
-                        .set('Authorization', 'bearar ' + token.slice)
-                        .end((err, res) => {
-                            res.should.have.status(400);
-                            res.body.should.have.property('success').eq(false);
-                            res.body.should.have.property('message');
-                            done();
-                        });
+        it("Data Is Not Provide To Invalid Token", done => {
+            chai
+                .request(server)
+                .get("/empPayroll")
+                .set('Authorization', 'bearar ' + token.slice)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.have.property('success').eq(false);
+                    res.body.should.have.property('message');
+                    done();
                 });
+        });
+    });
 
-            });
-
-            describe("/GET /findOne", () => {
-                it("it should give employeeData successfully with valid token and Object Id", done => {
-                    chai
-                        .request(server)
-                        .get("/empPayroll/" + emptest.data5.Id)
-                        .set('Authorization', 'bearer ' + token)
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            res.body.should.have.property('success').eq(true);
-                            res.body.should.have.property('data');
-                            done();
-                        });
+    describe("/GET /findOne", () => {
+        it("find Employee Using Id with valid token", done => {
+            chai
+                .request(server)
+                .get("/empPayroll/" + emptest.data5.Id)
+                .set('Authorization', 'bearer ' + token)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.have.property('success').eq(true);
+                    res.body.should.have.property('data');
+                    done();
                 });
-                it("it not should give employeeData  with valid token and invalid and Object Id ", done => {
-                    chai
-                        .request(server)
-                        .get("/empPayroll/" + emptest.data6.Id)
-                        .set('Authorization', 'bearer ' + token)
-                        .end((err, res) => {
-                            res.should.have.status(404);
-                            res.body.should.have.property('success').eq(false);
-                            res.body.should.have.property('message');
-                            done();
-                        });
+        });
+        it("find Employee Using Id with valid token if not gives error ", done => {
+            chai
+                .request(server)
+                .get("/empPayroll/" + emptest.data6.Id)
+                .set('Authorization', 'bearer ' + token)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.have.property('success').eq(false);
+                    res.body.should.have.property('message');
+                    done();
                 });
-            });
-            describe("/PUT /update/Id", () => {
-                it("it should update employeeData successfully with valid token and Object Id ", done => {
-                    const employeeData = employeetest.Data3;
-                    chai
-                        .request(server)
-                        .put("/update/" + employeetest.Data5.Id)
-                        .set('Authorization', 'bearar ' + token)
-                        .send(employeeData)
-                        .end((error, res) => {
-                            res.should.have.status(200);
-                            res.body.should.have.property('success').eq(true);
-                            done();
-                        });
+        });
+    });
+    /* describe("/PUT /update", () => {
+         it(" Update a Data Using Id ", done => {
+             const newData = emptest.data3;
+             chai
+                 .request(server)
+                 .put("/empPayroll/" + emptest.data5.Id)
+                 .set('Authorization', 'bearar ' + token)
+                 .send(newData)
+                 .end((error, res) => {
+                     res.should.have.status(200);
+                     res.body.should.have.property('success').eq(true);
+                     done();
+                 });
+         });
+     });*/
+    describe("/delele/Id", () => {
+        it("Delete a Data Using Id", done => {
+            chai
+                .request(server)
+                .delete("/empPayroll/" + emptest.data5.Id)
+                .set('Authorization', 'bearar ' + token)
+                .end((error, res) => {
+                    res.should.have.status(200);
+                    res.body.should.have.property('success').eq(true);
+                    done();
                 });
-            });
-
-            /*  describe("/GET /findOne", () => {
-                  it("it should give employeeData successfully with valid token and Object Id", done => {
-                      chai
-                          .request(server)
-                          .get("/empPayroll/:empId/" + emptest.Data5._Id)
-                          .set('Authorization', 'bearar ' + token)
-                          .end((err, res) => {
-                              res.should.have.status(200);
-                              res.body.should.have.property('success').eq(true);
-                              res.body.should.have.property('data');
-                              done();
-                          });
-                  });
-
-              });*/
-            //});
-            //});
+        });
+    });
+});
