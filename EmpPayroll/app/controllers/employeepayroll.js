@@ -67,20 +67,17 @@ class EmployeePayroll {
      * @param res Is Used To Take A Http Responce.
      */
     findOne = (req, res) => {
-            empService.findById(req.params.empId, (error, empData) => {
+            let empDataId = req.params.empId;
+            empService.findById(empDataId, (error, empData) => {
                 if (error) {
-                    if (error.kind === 'ObjectId') {
-                        return res.status(404).send({
-                            message: "Employee not found with id " + req.params.empId
-                        });
-                    }
-                    return res.status(500).send({
-                        message: "Error retrieving employee with id " + req.params.empId
-                    });
+                    return res.status(404).send({
+                        success: false,
+                        message: "some error is occurred"
+                    })
                 }
                 res.send({
                     success: true,
-                    data: data
+                    data: empData
                 })
             })
         }

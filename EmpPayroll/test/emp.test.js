@@ -108,11 +108,10 @@ describe('POST/empPayroll', () => {
     });
 
     describe("/GET /findOne", () => {
-
         it("it should give employeeData successfully with valid token and Object Id", done => {
             chai
                 .request(server)
-                .get("/empPayroll/:empId/" + emptest.Data5._Id)
+                .get("/empPayroll/" + emptest.data5.Id)
                 .set('Authorization', 'bearar ' + token)
                 .end((err, res) => {
                     res.should.have.status(200);

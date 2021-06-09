@@ -42,7 +42,7 @@ class empModel {
          */
     findById = (empId, callback) => {
             empPayrollModel.findById(empId, (error, data) => {
-                return (error) ? callBack(error, null) : callBack(null, data);
+                return (error) ? callback(error, null) : callback(null, data);
             });
         }
         /* @Description - Update method Created To Updated A Data
