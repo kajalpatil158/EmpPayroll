@@ -53,7 +53,7 @@ class empModel {
             empPayrollModel.findByIdAndUpdate(empId, {
                     firstName: newData.firstName,
                     lastName: newData.lastName,
-                    email: newData.email,
+                    emailId: newData.email,
                     password: newData.password
                 }, { new: true },
                 (error, data) => {
@@ -68,8 +68,8 @@ class empModel {
          * @param data sent from Service
          * @return callback is used to callback Services includes error message or data
          */
-    deleteById = (empID, callBack) => {
-        empPayrollModel.findByIdAndRemove(empID, error => {
+    deleteById = (empId, callBack) => {
+        empPayrollModel.findByIdAndRemove(empId, (error, data) => {
             if (error) {
                 return callBack(error, null);
             } else {

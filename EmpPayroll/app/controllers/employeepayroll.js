@@ -86,8 +86,8 @@ class EmployeePayroll {
          * @param res Is Used To Take A Http Responce.
          */
     update = (req, res) => {
-        let newData = req.body;
-        empService.updateByID(req.params.empeId, empData, (error, newData) => {
+        let empId = req.params.empId;
+        empService.updateByID(req.body, empId, (error, data) => {
             if (error) {
                 logger.error("Some Error Occure While Updating Emp Data")
                 if (error.kind === 'ObjectId') {
@@ -95,17 +95,14 @@ class EmployeePayroll {
                         message: "Employee Not Finding With Given Id " + req.params.empId
                     });
                 }
-                return res.status(500).send({
-                    message: "Error Occured At The Time Updation Of Data " + req.params.empId
-                });
+                res.send({
+                    success: true,
+                    message: "Data updated successfully",
+                    data: data
+                })
+
             }
 
-            res.status(200).send({
-
-                success: true,
-                message: "Data updated successfully",
-                data: newData
-            })
         })
     };
     /* @Description - Delete Employee Payroll Data Update Emp Data By Id
@@ -113,16 +110,14 @@ class EmployeePayroll {
      * @param res Is Used To Take A Http Responce.
      */
     delete = (req, res) => {
-        empService.deleteById(req.params.empId, error => {
+        let empId = req.params.empId;
+        empService.deleteById(empId, (error, empData) => {
             if (error) {
-                if (error.kind === 'ObjectId') {
-                    return res.status(404).send({
-                        message: "Employee payroll id not found " + req.params.empId
-                    });
-                }
-                return res.status(500).send({
-                    message: "Employee payroll id not found" + req.params.emId
-                });
+                return res.status(404).send({
+                    success: false,
+                    message: "Employee Id not found"
+
+                })
             }
             res.send({
                 success: true,

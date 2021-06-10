@@ -44,7 +44,7 @@ class EmpService {
          * @param- empData send from controller
          * @return callback is used to callback controller
          */
-    updateByID = (empId, newData, callback) => {
+    updateByID = (empId, newData, callBack) => {
         EmpModel.updateById(empId, newData, (error, data) => {
             return (error) ? callBack(error, null) : callBack(null, data);
         })
@@ -54,8 +54,8 @@ class EmpService {
      * @param- empData send from controller
      * @return callback is used to callback controller
      */
-    deleteById = (empId, callback) => {
-        EmpModel.deleteById(empId, error => {
+    deleteById = (empId, callBack) => {
+        EmpModel.deleteById(empId, (error, data) => {
             return (error) ? callBack(error, null) : callBack(null, data);
         });
     }

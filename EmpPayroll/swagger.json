@@ -175,7 +175,7 @@
                 "tags": [],
                 "description": "",
                 "parameters": [{
-                    "name": "Credentials",
+                    "name": "userInfo",
                     "in": "body",
                     "required": true,
                     "schema": {
@@ -221,7 +221,7 @@
         "Login": {
             "type": "object",
             "properties": {
-                "emailId": {
+                "email": {
                     "type": "string"
                 },
                 "password": {
