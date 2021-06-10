@@ -12,10 +12,10 @@ module.exports = (app) => {
     app.get('/empPayroll/:empId', validation.checkToken, employeePayroll.findOne);
 
     // Update a employeespayroll with employeepayroll
-    app.put('/empPayroll/:empId', validation.checkToken, employeePayroll.update);
+    app.put('/update/:empId', validation.checkToken, employeePayroll.update);
 
     // Delete a employeespayroll with employeepayroll
-    app.delete('/empPayroll/:empId', validation.checkToken, employeePayroll.delete);
+    app.delete('/delete/:empId', validation.checkToken, employeePayroll.delete);
 
     // Login JWT Authentication
     app.post('/login', employeePayroll.login);

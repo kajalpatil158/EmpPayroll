@@ -5,7 +5,8 @@
     "main": "server.js",
     "scripts": {
         "start": "nodemon server.js",
-        "test": "nyc mocha ./test/**/*.js --exit --inspect=0.0.0.0:9229 --timeout 120000"
+        "test": " mocha"
+
     },
     "author": "Kajal Patil",
     "license": "ISC",

@@ -67,7 +67,7 @@ class EmpService {
                 return callback(error, null);
             } else if (result = bcrypt.compareSync(email.password, data.password)) {
                 data.password = undefined;
-                const jsontoken = sign({ result: data }, "abc123", { expiresIn: "1h" });
+                const jsontoken = sign({ result: data }, "abc123", { expiresIn: "5h" });
                 return callback(null, jsontoken);
             }
             return callback("Invalid Email", null);

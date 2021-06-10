@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Employee Payroll Application",
+        "title": "Employee Payroll Backend Application",
         "description": "Employee Registration Form",
         "version": "1.0.0"
     },

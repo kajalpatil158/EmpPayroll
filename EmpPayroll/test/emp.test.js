@@ -8,17 +8,14 @@ const fs = require('fs');
 let data = fs.readFileSync('test/empdata.json');
 let emptest = JSON.parse(data);
 
-var assert = require('assert');
-
 describe('POST/login', () => {
-    it('given data return body when login should return success=true with 200 status code and successfull login message ', (done) => {
+    it('givendatareturnbody_Whenlogin_Shouldreturnsuccess=truewith200statuscodeandsuccessfullloginmessage ', (done) => {
         const empData = emptest.data1;
         chai.request(server)
             .post('/login')
             .send(empData)
             .end((error, res) => {
                 res.should.have.status(200);
-                //assert.property(res.body, 'success'); 
                 res.body.should.be.property('success').eq(true);
                 res.body.should.be.property('message').eq("User Login Successfull!!");
                 res.body.should.be.property('token');
@@ -26,7 +23,7 @@ describe('POST/login', () => {
             });
     });
 
-    it('given data return body when login should return success=false with status=404 code ', (done) => {
+    it('givendatareturnbody_Whenlogin_Shouldreturnsuccess=falsewithstatus=404code ', (done) => {
         const empData = emptest.data2;
         chai.request(server)
             .post('/login')
@@ -39,11 +36,11 @@ describe('POST/login', () => {
     });
 });
 
-describe('POST/empPayroll', () => {
-    it('given employee is When added Should return status=200 and success=true and message = Successfully Added', (done) => {
+describe('POST/create', () => {
+    it('givenemployeeis_Whenadded_Shouldreturnstatus=200andsuccess=trueandmessage=SuccessfullyAdded', (done) => {
         const empData = emptest.data3;
         chai.request(server)
-            .post('/empPayroll')
+            .post('/create')
             .send(empData)
             .end((error, res) => {
                 res.should.have.status(200);
@@ -53,10 +50,10 @@ describe('POST/empPayroll', () => {
             });
     });
 
-    it('given employee is not When added Should return status=404 and success=false', (done) => {
+    it('givenemployeeisnot_Whenadded_Shouldreturnstatus=404andsuccess=false', (done) => {
         const empData = emptest.data4;
         chai.request(server)
-            .post('/empPayroll')
+            .post('/create')
             .send(empData)
             .end((error, res) => {
                 res.should.have.status(400);
@@ -81,7 +78,7 @@ describe('POST/empPayroll', () => {
     });
 
     describe("/GET /findAll", () => {
-        it("given token When valid Should retrive data with status=200 and success=true with Successfully retrive data message ", done => {
+        it("giventoken_Whenvalid_Shouldretrivedatawithstatus=200andsuccess=truewithSuccessfullyretrivedatamessage", done => {
             console.log(token);
             chai
                 .request(server)
@@ -89,13 +86,13 @@ describe('POST/empPayroll', () => {
                 .set('Authorization', 'bearar ' + token)
                 .end((err, response) => {
                     response.should.have.status(200);
-                    response.body.should.have.property('message').eq("Retrive all employees data!")
+                    response.body.should.have.property('message').eq("Getted all employees data!")
                     response.body.should.have.property('data')
                     done();
                 });
         });
 
-        it("given token When invalid Should not retrive data with status=404 and success=false ", done => {
+        it("giventoken_Wheninvalid_Shouldnotretrivedatawithstatus=404andsuccess=false", done => {
             chai
                 .request(server)
                 .get("/empPayroll")
@@ -110,7 +107,7 @@ describe('POST/empPayroll', () => {
     });
 
     describe("/GET /findOne", () => {
-        it("given token When valid Should retrive a data by is with status=200 and success=true with Successfully retrive data message", done => {
+        it("giventoken_Whenvalid_Shouldretriveadatabyiswithstatus=200andsuccess=truewithsuccessfullyretrivedatamessage", done => {
             chai
                 .request(server)
                 .get("/empPayroll/" + emptest.data5.Id)
@@ -122,7 +119,7 @@ describe('POST/empPayroll', () => {
                     done();
                 });
         });
-        it("given token When invalid Should not retrive data with status=404 and success=false ", done => {
+        it("giventoken_Wheninvalid_Shouldnotretrivedatawithstatus=404andsuccess=false", done => {
             chai
                 .request(server)
                 .get("/empPayroll/" + emptest.data6.Id)
@@ -135,32 +132,35 @@ describe('POST/empPayroll', () => {
                 });
         });
     });
-    /* describe("/PUT /update", () => {
-         it(" Update a Data Using Id ", done => {
+    /* describe("/PUT /update/Id", () => {
+         it("given data valid When Token is valid should return status=200", done => {
              const newData = emptest.data3;
+             console.log(newData);
              chai
                  .request(server)
                  .put("/empPayroll/" + emptest.data5.Id)
                  .set('Authorization', 'bearar ' + token)
                  .send(newData)
-                 .end((error, res) => {
+                 .end((err, res) => {
                      res.should.have.status(200);
                      res.body.should.have.property('success').eq(true);
+                     res.body.should.have.property('message').eq("Data updated successfully");
+
                      done();
                  });
          });
-     });*/
-    /* describe("/delele/Id", () => {
-         it("Delete a Data Using Id", done => {
-             chai
-                 .request(server)
-                 .delete("/empPayroll/" + emptest.data5.Id)
-                 .set('Authorization', 'bearar ' + token)
-                 .end((error, res) => {
-                     res.should.have.status(200);
-                     res.body.should.have.property('success').eq(true);
-                     done();
-                 });
-         });
-     });*/
+     });
+     /* describe("/delele/Id", () => {
+          it("Delete a Data Using Id", done => {
+              chai
+                  .request(server)
+                  .delete("/empPayroll/" + emptest.data5.Id)
+                  .set('Authorization', 'bearar ' + token)
+                  .end((error, res) => {
+                      res.should.have.status(200);
+                      res.body.should.have.property('success').eq(true);
+                      done();
+                  });
+          });
+      });*/
 });
