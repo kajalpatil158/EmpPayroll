@@ -104,6 +104,20 @@ describe('POST/create', () => {
                     done();
                 });
         });
+
+        it("giveninvalitoken_Whenretrived_Shouldreturnstatus401andsuccess=false", done => {
+            var invalidToken = '';
+            chai
+                .request(server)
+                .get("/empPayroll")
+                .set('Authorization', invalidToken)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.have.property('success').eq(false);
+                    res.body.should.have.property('message').eq("Access Denied!, Unauthorised User ");
+                    done();
+                });
+        });
     });
 
     describe("/GET /findOne", () => {
