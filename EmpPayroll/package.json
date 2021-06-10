@@ -5,8 +5,7 @@
     "main": "server.js",
     "scripts": {
         "start": "nodemon server.js",
-        "test": "mocha",
-        "swagger-autogen": "node ./swagger.js"
+        "test": "nyc mocha ./test/**/*.js --exit --inspect=0.0.0.0:9229 --timeout 120000"
     },
     "author": "Kajal Patil",
     "license": "ISC",
@@ -30,6 +29,7 @@
         "chai-http": "^4.3.0",
         "mocha": "^8.4.0",
         "nodemon": "^2.0.7",
+        "nyc": "^15.1.0",
         "superagent": "^6.1.0",
         "supertest": "^6.1.3"
     }

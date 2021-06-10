@@ -8,6 +8,8 @@ const fs = require('fs');
 let data = fs.readFileSync('test/empdata.json');
 let emptest = JSON.parse(data);
 
+var assert = require('assert');
+
 describe('POST/login', () => {
     it('Post To New Login Emp Data', (done) => {
         const empData = emptest.data1;
@@ -16,6 +18,7 @@ describe('POST/login', () => {
             .send(empData)
             .end((error, res) => {
                 res.should.have.status(200);
+                //assert.property(res.body, 'success'); 
                 res.body.should.be.property('success').eq(true);
                 res.body.should.be.property('message').eq("User Login Successfull!!");
                 res.body.should.be.property('token');
@@ -147,17 +150,17 @@ describe('POST/empPayroll', () => {
                  });
          });
      });*/
-    describe("/delele/Id", () => {
-        it("Delete a Data Using Id", done => {
-            chai
-                .request(server)
-                .delete("/empPayroll/" + emptest.data5.Id)
-                .set('Authorization', 'bearar ' + token)
-                .end((error, res) => {
-                    res.should.have.status(200);
-                    res.body.should.have.property('success').eq(true);
-                    done();
-                });
-        });
-    });
+    /* describe("/delele/Id", () => {
+         it("Delete a Data Using Id", done => {
+             chai
+                 .request(server)
+                 .delete("/empPayroll/" + emptest.data5.Id)
+                 .set('Authorization', 'bearar ' + token)
+                 .end((error, res) => {
+                     res.should.have.status(200);
+                     res.body.should.have.property('success').eq(true);
+                     done();
+                 });
+         });
+     });*/
 });

@@ -68,9 +68,13 @@ class empModel {
          * @param data sent from Service
          * @return callback is used to callback Services includes error message or data
          */
-    deleteById = (empID, callback) => {
+    deleteById = (empID, callBack) => {
         empPayrollModel.findByIdAndRemove(empID, error => {
-            return (error) ? callBack(error, null) : callBack(null, data);
+            if (error) {
+                return callBack(error, null);
+            } else {
+                return callBack(null, data);
+            }
         })
     }
 
