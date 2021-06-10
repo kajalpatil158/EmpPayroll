@@ -3,7 +3,7 @@ const validation = require('../middleware/helper.js');
 module.exports = (app) => {
 
     // Create a new employeespayroll
-    app.post('/empPayroll', employeePayroll.create);
+    app.post('/create', employeePayroll.create);
 
     // Retrieve all employeespayroll
     app.get('/empPayroll', validation.checkToken, employeePayroll.findAll);

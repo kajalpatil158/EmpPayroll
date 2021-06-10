@@ -14,7 +14,7 @@
     "consumes": [],
     "produces": [],
     "paths": {
-        "/empPayroll": {
+        "/create": {
             "post": {
                 "tags": [],
                 "description": "",
@@ -39,7 +39,7 @@
                 }
             }
         },
-        "/employees": {
+        "/empPayroll": {
             "get": {
                 "tags": [],
                 "description": "",
@@ -175,7 +175,7 @@
                 "tags": [],
                 "description": "",
                 "parameters": [{
-                    "name": "UserInfo",
+                    "name": "Credentials",
                     "in": "body",
                     "required": true,
                     "schema": {
