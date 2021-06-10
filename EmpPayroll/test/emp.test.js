@@ -146,23 +146,37 @@ describe('POST/create', () => {
                 });
         });
     });
-    /*  describe("/put /update /Id", () => {
-          it("given data valid When Token is valid should return status=200", done => {
-              const newData = emptest.data3;
-              console.log("data" + newData);
-              chai
-                  .request(server)
-                  .put("/update/" + emptest.data5.Id)
-                  .set('Authorization', 'bearar ' + token)
-                  .send(newData)
-                  .end((err, res) => {
-                      res.should.have.status(200);
-                      res.body.should.have.property('success').eq(true);
-                      res.body.should.have.property('message').eq("Data updated successfully");
-                      done();
-                  });
-          });
-      });*/
+    describe("/put /update /Id", () => {
+        /*  it("given data valid When Token is valid should return status=200", done => {
+             const newData = emptest.data3;
+             console.log("data" + newData);
+             chai
+                 .request(server)
+                 .put("/update/" + emptest.data5.Id)
+                 .set('Authorization', 'bearar ' + token)
+                 .send(newData)
+                 .end((err, res) => {
+                     res.should.have.status(200);
+                     res.body.should.have.property('success').eq(true);
+                     res.body.should.have.property('message').eq("Data updated successfully");
+                     done();
+                 });
+         });*/
+        it("given valid token and wrong employee data when update using Id should return status=404 and success=false", done => {
+            const empData = emptest.data3;
+            chai
+                .request(server)
+                .put("/update/" + emptest.data6.Id)
+                .set('Authorization', 'bearar ' + token)
+                .send(empData)
+                .end((error, res) => {
+                    res.should.have.status(404);
+                    res.body.should.have.property('success').eq(false);
+                    res.body.should.have.property('message').eq(" Employee payroll id not found ");
+                    done();
+                });
+        });
+    });
     describe("/delele/Id", () => {
         it("givenvalidtoken_Whenthatpass_Shoulddeletedatastatus=200success=true", done => {
             console.log(emptest.data5.Id);
