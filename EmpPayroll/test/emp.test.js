@@ -11,7 +11,7 @@ let emptest = JSON.parse(data);
 var assert = require('assert');
 
 describe('POST/login', () => {
-    it('Post To New Login Emp Data', (done) => {
+    it('given data return body when login should return success=true with 200 status code and successfull login message ', (done) => {
         const empData = emptest.data1;
         chai.request(server)
             .post('/login')
@@ -26,7 +26,7 @@ describe('POST/login', () => {
             });
     });
 
-    it('Post data1 And Gives Error 404', (done) => {
+    it('given data return body when login should return success=false with status=404 code ', (done) => {
         const empData = emptest.data2;
         chai.request(server)
             .post('/login')
@@ -40,7 +40,7 @@ describe('POST/login', () => {
 });
 
 describe('POST/empPayroll', () => {
-    it('Post emp data', (done) => {
+    it('given employee is When added Should return status=200 and success=true and message = Successfully Added', (done) => {
         const empData = emptest.data3;
         chai.request(server)
             .post('/empPayroll')
@@ -53,7 +53,7 @@ describe('POST/empPayroll', () => {
             });
     });
 
-    it('It should POST a  employee data', (done) => {
+    it('given employee is not When added Should return status=404 and success=false', (done) => {
         const empData = emptest.data4;
         chai.request(server)
             .post('/empPayroll')
@@ -81,7 +81,7 @@ describe('POST/empPayroll', () => {
     });
 
     describe("/GET /findAll", () => {
-        it("Retrive Employee Data With Valid Token ", done => {
+        it("given token When valid Should retrive data with status=200 and success=true with Successfully retrive data message ", done => {
             console.log(token);
             chai
                 .request(server)
@@ -89,13 +89,13 @@ describe('POST/empPayroll', () => {
                 .set('Authorization', 'bearar ' + token)
                 .end((err, response) => {
                     response.should.have.status(200);
-                    response.body.should.have.property('message').eq("Getted all employees data!")
+                    response.body.should.have.property('message').eq("Retrive all employees data!")
                     response.body.should.have.property('data')
                     done();
                 });
         });
 
-        it("Data Is Not Provide To Invalid Token", done => {
+        it("given token When invalid Should not retrive data with status=404 and success=false ", done => {
             chai
                 .request(server)
                 .get("/empPayroll")
@@ -110,7 +110,7 @@ describe('POST/empPayroll', () => {
     });
 
     describe("/GET /findOne", () => {
-        it("find Employee Using Id with valid token", done => {
+        it("given token When valid Should retrive a data by is with status=200 and success=true with Successfully retrive data message", done => {
             chai
                 .request(server)
                 .get("/empPayroll/" + emptest.data5.Id)
@@ -122,7 +122,7 @@ describe('POST/empPayroll', () => {
                     done();
                 });
         });
-        it("find Employee Using Id with valid token if not gives error ", done => {
+        it("given token When invalid Should not retrive data with status=404 and success=false ", done => {
             chai
                 .request(server)
                 .get("/empPayroll/" + emptest.data6.Id)
