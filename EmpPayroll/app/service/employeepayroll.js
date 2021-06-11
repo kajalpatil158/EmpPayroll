@@ -62,8 +62,7 @@ class EmpService {
     }
 
     getUserByEmail = (email, callback) => {
-        EmpModel.getUserByEmail(emailId, (error, data) => {
-            console.log(data);
+        EmpModel.getUserByEmail(email, (error, data) => {
             let result = null;
             if (error) {
                 return callback(error, null);
