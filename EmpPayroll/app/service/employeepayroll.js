@@ -10,7 +10,9 @@ class EmpService {
      */
     create = (empData, callBack) => {
         const salt = genSaltSync(10);
+        console.log(empData.password);
         empData.password = hashSync(empData.password, salt);
+        console.log(empData.password);
         EmpModel.create(empData, (error, data) => {
             return (error) ? callBack(error, null) : callBack(null, data);
         })
@@ -46,7 +48,6 @@ class EmpService {
          */
     updateByID = (empId, newData, callBack) => {
         EmpModel.updateById(empId, newData, (error, data) => {
-            console.log(data);
             return (error) ? callBack(error, null) : callBack(null, data);
         })
     }
@@ -66,13 +67,18 @@ class EmpService {
             let result = null;
             if (error) {
                 return callback(error, null);
-            } else if (result = bcrypt.compareSync(email.password, data.password)) {
-                data.password = undefined;
-                const jsontoken = sign({ result: data }, "abc123", { expiresIn: "1h" });
-                return callback(null, jsontoken);
+            } 
+            else if (result = bcrypt.compareSync(email.password, data.password)) {
+                //data.password = undefined;
+                const jsontoken = sign({ result: data }, "abc123", { expiresIn: "5h" });
+                return callback(null, jsontoken); 
+                
             }
+            console.log(email.password);
+            console.log(data.password);
+            console.log(result);
             return callback("Invalid Email", null);
         });
     }
 }
-module.exports = new EmpService();
+module.exports = new EmpService()

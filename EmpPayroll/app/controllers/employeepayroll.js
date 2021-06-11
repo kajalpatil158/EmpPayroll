@@ -1,7 +1,6 @@
 const empService = require('../service/employeepayroll');
 const empPayroll = require('../models/employeepayroll.js');
 const empData = require('../validation/employeepayroll.js');
-
 const { genSaltSync, hashSync } = require("bcrypt");
 /* @Description- create and save new emp
  * @param res is used to send responce.
@@ -22,8 +21,8 @@ class EmployeePayroll {
         }
 
         //genSaltSync and hashSync Is Used For Encrypt A Data.
-        const salt = genSaltSync(10);
-        req.body.password = hashSync(req.body.password, salt);
+        //const salt = genSaltSync(10);
+        //req.body.password = hashSync(req.body.password, salt);
 
         let empInfo = req.body;
         empService.create(empInfo, (error, validationEmp) => {
@@ -89,19 +88,19 @@ class EmployeePayroll {
         let empId = req.params.empId;
         empService.updateByID(req.body, empId, (error, data) => {
             if (error) {
-                //logger.error("Some Error Occure While Updating Emp Data")
+                logger.error("Some Error Occure While Updating Emp Data")
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
-                        success: false,
-                        message: "Employee Not Finding With Given Id "
+                        message: "Employee Not Finding With Given Id " + req.params.empId
                     });
                 }
+                res.send({
+                    success: true,
+                    message: "Data updated successfully",
+                    data: data
+                })
+
             }
-            res.send({
-                success: true,
-                message: "Data updated successfully",
-                data: data
-            })
 
         })
     };
@@ -140,7 +139,6 @@ class EmployeePayroll {
                 message: "User Login Successfull!!",
                 token: data
             });
-
         })
     }
 }

@@ -36,11 +36,11 @@ describe('POST/login', () => {
     });
 });
 
-describe('POST/create', () => {
+describe('POST/addEmployee', () => {
     it('givenemployeeis_Whenadded_Shouldreturnstatus=200andsuccess=trueandmessage=SuccessfullyAdded', (done) => {
         const empData = emptest.data3;
         chai.request(server)
-            .post('/create')
+            .post('/addEmployee')
             .send(empData)
             .end((error, res) => {
                 res.should.have.status(200);
@@ -53,7 +53,7 @@ describe('POST/create', () => {
     it('givenemployeeisnot_Whenadded_Shouldreturnstatus=404andsuccess=false', (done) => {
         const empData = emptest.data4;
         chai.request(server)
-            .post('/create')
+            .post('/addEmployee')
             .send(empData)
             .end((error, res) => {
                 res.should.have.status(400);

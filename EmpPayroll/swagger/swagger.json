@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Employee Payroll Application",
+        "title": "Employee Payroll Backend Application",
         "description": "Employee Registration Form",
         "version": "1.0.0"
     },
@@ -14,16 +14,16 @@
     "consumes": [],
     "produces": [],
     "paths": {
-        "/empPayroll": {
+        "/addEmployee": {
             "post": {
                 "tags": [],
                 "description": "",
                 "parameters": [{
-                    "name": "create employee",
+                    "name": "Create Employee",
                     "in": "body",
                     "required": true,
                     "schema": {
-                        "$ref": "#/definitions/Employee"
+                        "$ref": "#/definitions/EmployeeField"
                     }
                 }],
                 "responses": {
@@ -39,7 +39,7 @@
                 }
             }
         },
-        "/employees": {
+        "/empPayroll": {
             "get": {
                 "tags": [],
                 "description": "",
@@ -61,7 +61,7 @@
                     }
                 },
                 "security": [{
-                    "JWT": []
+                    "JWTKey": []
                 }]
             }
         },
@@ -93,7 +93,7 @@
                     }
                 },
                 "security": [{
-                    "JWT": []
+                    "JWTKey": []
                 }]
             }
         },
@@ -102,7 +102,7 @@
                 "tags": [],
                 "description": "",
                 "parameters": [{
-                        "name": "empId",
+                        "name": "Employee Id",
                         "in": "path",
                         "required": true,
                         "type": "string"
@@ -112,7 +112,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Employee"
+                            "$ref": "#/definitions/EmployeeField"
                         }
                     }
                 ],
@@ -134,7 +134,7 @@
                     }
                 },
                 "security": [{
-                    "JWT": []
+                    "JWTKey": []
                 }]
             }
         },
@@ -143,7 +143,7 @@
                 "tags": [],
                 "description": "",
                 "parameters": [{
-                    "name": "empId",
+                    "name": "Employee Id",
                     "in": "path",
                     "required": true,
                     "type": "string"
@@ -166,7 +166,7 @@
                     }
                 },
                 "security": [{
-                    "JWT": []
+                    "JWTKey": []
                 }]
             }
         },
@@ -175,11 +175,11 @@
                 "tags": [],
                 "description": "",
                 "parameters": [{
-                    "name": "UserInfo",
+                    "name": "User Crediantial",
                     "in": "body",
                     "required": true,
                     "schema": {
-                        "$ref": "#/definitions/Login"
+                        "$ref": "#/definitions/LoginField"
                     }
                 }],
                 "responses": {
@@ -194,14 +194,14 @@
         }
     },
     "securityDefinitions": {
-        "JWT": {
+        "JWTKey": {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
         }
     },
     "definitions": {
-        "Employee": {
+        "EmployeeField": {
             "type": "object",
             "properties": {
                 "firstName": {
@@ -218,7 +218,7 @@
                 }
             }
         },
-        "Login": {
+        "LoginField": {
             "type": "object",
             "properties": {
                 "emailId": {

@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./swagger/swagger.json');
 
 require('dotenv').config();
 
@@ -31,7 +31,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 require('./app/routes/employeepayroll.js')(app);
 
 // listen for requests
-const port = 7000
 module.exports = app.listen(7000, () => {
     console.log('Application Is Listening On Port 7000');
 });
