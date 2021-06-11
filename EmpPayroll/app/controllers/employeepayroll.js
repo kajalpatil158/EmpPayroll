@@ -89,19 +89,18 @@ class EmployeePayroll {
         let empId = req.params.empId;
         empService.updateByID(req.body, empId, (error, data) => {
             if (error) {
-                logger.error("Some Error Occure While Updating Emp Data")
+                //logger.error("Some Error Occure While Updating Emp Data")
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
                         message: "Employee Not Finding With Given Id " + req.params.empId
                     });
                 }
-                res.send({
-                    success: true,
-                    message: "Data updated successfully",
-                    data: data
-                })
-
             }
+            res.send({
+                success: true,
+                message: "Data updated successfully",
+                data: data
+            })
 
         })
     };

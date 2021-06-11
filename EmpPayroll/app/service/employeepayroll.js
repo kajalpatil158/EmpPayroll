@@ -46,6 +46,7 @@ class EmpService {
          */
     updateByID = (empId, newData, callBack) => {
         EmpModel.updateById(empId, newData, (error, data) => {
+            console.log(data);
             return (error) ? callBack(error, null) : callBack(null, data);
         })
     }
@@ -61,13 +62,14 @@ class EmpService {
     }
 
     getUserByEmail = (email, callback) => {
-        EmpModel.getUserByEmail(email, (error, data) => {
+        EmpModel.getUserByEmail(emailId, (error, data) => {
+            console.log(data);
             let result = null;
             if (error) {
                 return callback(error, null);
             } else if (result = bcrypt.compareSync(email.password, data.password)) {
                 data.password = undefined;
-                const jsontoken = sign({ result: data }, "abc123", { expiresIn: "5h" });
+                const jsontoken = sign({ result: data }, "abc123", { expiresIn: "1h" });
                 return callback(null, jsontoken);
             }
             return callback("Invalid Email", null);

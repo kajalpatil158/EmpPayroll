@@ -53,7 +53,7 @@ class empModel {
             empPayrollModel.findByIdAndUpdate(empId, {
                     firstName: newData.firstName,
                     lastName: newData.lastName,
-                    emailId: newData.email,
+                    emailId: newData.emailId,
                     password: newData.password
                 }, { new: true },
                 (error, data) => {
