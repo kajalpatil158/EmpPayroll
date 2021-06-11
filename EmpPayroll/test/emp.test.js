@@ -146,23 +146,22 @@ describe('POST/create', () => {
                 });
         });
     });
-    /*  describe("/put /update /Id", () => {
-          it("given data valid When Token is valid should return status=200", done => {
-              const newData = emptest.data3;
-              console.log("data" + newData);
-              chai
-                  .request(server)
-                  .put("/update/" + emptest.data5.Id)
-                  .set('Authorization', 'bearar ' + token)
-                  .send(newData)
-                  .end((err, res) => {
-                      res.should.have.status(200);
-                      res.body.should.have.property('success').eq(true);
-                      res.body.should.have.property('message').eq("Data updated successfully");
-                      done();
-                  });
-          });
-      });*/
+    describe("/put /update /Id", () => {
+        it("givendatacheckwithtoken_Whentokenisvalid_Shouldreturnstatus=200andsuccess=true", done => {
+            const newData = emptest.data3;
+            chai
+                .request(server)
+                .put("/update/" + emptest.data5.Id)
+                .set('Authorization', 'bearar ' + token)
+                .send(newData)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.have.property('success').eq(true);
+                    res.body.should.have.property('message').eq("Data updated successfully");
+                    done();
+                });
+        });
+    });
     describe("/delele/Id", () => {
         it("givenvalidtoken_Whenthatpass_Shoulddeletedatastatus=200success=true", done => {
             console.log(emptest.data5.Id);
@@ -173,7 +172,6 @@ describe('POST/create', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.have.property('success').eq(true);
-                    //res.body.should.have.property('message').eq("Employee payroll id not found");
                     done();
                 });
         });
