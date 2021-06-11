@@ -25,8 +25,8 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
 
 ## Install
  $ git clone https://github.com/kajalpatil158/EmpPayroll
-    $ cd EmpPayroll
-    $ npm install
+ $ cd EmpPayroll
+ $ npm install
     
  ## Configure app
  after installation create '.env' file in EmpPayroll root path and then add the "databaseurl, port" environment variables.
