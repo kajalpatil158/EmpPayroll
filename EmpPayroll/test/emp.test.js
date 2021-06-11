@@ -79,7 +79,6 @@ describe('POST/create', () => {
 
     describe("/GET /findAll", () => {
         it("giventoken_Whenvalid_Shouldretrivedatawithstatus=200andsuccess=truewithSuccessfullyretrivedatamessage", done => {
-            console.log(token);
             chai
                 .request(server)
                 .get("/empPayroll")
@@ -158,6 +157,20 @@ describe('POST/create', () => {
                     res.should.have.status(200);
                     res.body.should.have.property('success').eq(true);
                     res.body.should.have.property('message').eq("Data updated successfully");
+                    done();
+                });
+        });
+        it("givendatacheckwithtoken_Whentokenisinvalid_Shouldreturnstatus=404andsuccess=false", done => {
+            const newData = emptest.data3;
+            chai
+                .request(server)
+                .put("/update/" + emptest.data6.Id)
+                .set('Authorization', 'bearar ' + token)
+                .send(newData)
+                .end((error, res) => {
+                    res.should.have.status(404);
+                    res.body.should.have.property('success').eq(false);
+                    res.body.should.have.property('message').eq("Employee Not Finding With Given Id ");
                     done();
                 });
         });

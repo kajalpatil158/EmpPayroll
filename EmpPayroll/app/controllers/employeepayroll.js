@@ -92,7 +92,8 @@ class EmployeePayroll {
                 //logger.error("Some Error Occure While Updating Emp Data")
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
-                        message: "Employee Not Finding With Given Id " + req.params.empId
+                        success: false,
+                        message: "Employee Not Finding With Given Id "
                     });
                 }
             }
