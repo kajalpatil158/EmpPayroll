@@ -53,15 +53,11 @@ class empModel {
             empPayrollModel.findByIdAndUpdate(empId, {
                     firstName: newData.firstName,
                     lastName: newData.lastName,
-                    emailId: newData.email,
+                    emailId: newData.emailId,
                     password: newData.password
                 }, { new: true },
                 (error, data) => {
-                    if (error) {
-                        return callBack(error, null);
-                    } else {
-                        return callBack(null, data);
-                    }
+                    return (error) ? callBack(error, null) : callBack(null, data);
                 });
         }
         /* @Description - Update method Created To Updated A Data
@@ -70,21 +66,16 @@ class empModel {
          */
     deleteById = (empId, callBack) => {
         empPayrollModel.findByIdAndRemove(empId, (error, data) => {
-            if (error) {
-                return callBack(error, null);
-            } else {
-                return callBack(null, data);
-            }
+            return (error) ? callBack(error, null) : callBack(null, data);
         })
     }
 
-    getUserByEmail = (email, callback) => {
+    getUserByEmail = (email, callBack) => {
         empPayrollModel.findOne({ "emailId": email.emailId }, (error, data) => {
-            console.log(email.emailId);
             if (error) {
                 return callback(error, null)
             }
-            return (!data) ? callback("User Not Exist ", null) : callback(null, data);
+            return (!data) ? callBack("User Not Exist ", null) : callBack(null, data);
         })
     }
 }

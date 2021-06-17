@@ -10,9 +10,8 @@ class EmpService {
      */
     create = (empData, callBack) => {
         const salt = genSaltSync(10);
-        console.log(empData.password);
         empData.password = hashSync(empData.password, salt);
-        console.log(empData.password);
+        //console.log(empData.password);
         EmpModel.create(empData, (error, data) => {
             return (error) ? callBack(error, null) : callBack(null, data);
         })
@@ -24,10 +23,7 @@ class EmpService {
      */
     findAll = (callback) => {
             EmpModel.findAll((error, data) => {
-                if (error) {
-                    return callback(error, null);
-                }
-                return callback(null, data);
+                return (error) ? callBack(error, null) : callBack(null, data);
             });
         }
         /* @Description - findById method is created.
@@ -36,10 +32,7 @@ class EmpService {
          */
     findById = (empId, callback) => {
             EmpModel.findById(empId, (error, data) => {
-                if (error) {
-                    return callback(error, null);
-                }
-                return callback(null, data);
+                return (error) ? callBack(error, null) : callBack(null, data);
             });
         }
         /* @Description - updateById method is created.
@@ -67,16 +60,11 @@ class EmpService {
             let result = null;
             if (error) {
                 return callback(error, null);
-            } 
-            else if (result = bcrypt.compareSync(email.password, data.password)) {
+            } else if (result = bcrypt.compareSync(email.password, data.password)) {
                 //data.password = undefined;
-                const jsontoken = sign({ result: data }, "abc123", { expiresIn: "5h" });
-                return callback(null, jsontoken); 
-                
+                const jsontoken = sign({ result: data }, process.env.JWT_KEY, { expiresIn: "1h" });
+                return callback(null, jsontoken);
             }
-            console.log(email.password);
-            console.log(data.password);
-            console.log(result);
             return callback("Invalid Email", null);
         });
     }

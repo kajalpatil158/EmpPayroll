@@ -164,7 +164,7 @@ describe('POST/addEmployee', () => {
             const newData = emptest.data3;
             chai
                 .request(server)
-                .put("/update/" + emptest.data6.Id)
+                .put("/update/"+emptest.data6.Id)
                 .set('Authorization', 'bearar ' + token)
                 .send(newData)
                 .end((error, res) => {
@@ -185,6 +185,7 @@ describe('POST/addEmployee', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.have.property('success').eq(true);
+                    res.body.should.have.property('message');
                     done();
                 });
         });
@@ -196,6 +197,7 @@ describe('POST/addEmployee', () => {
                 .end((error, res) => {
                     res.should.have.status(404);
                     res.body.should.have.property('success').eq(false);
+                    res.body.should.have.property('message');
                     done();
                 });
         });

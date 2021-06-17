@@ -4,8 +4,7 @@ module.exports = {
         let token = req.get("authorization");
         if (token) {
             token = token.slice(7);
-            console.log(token);
-            jwt.verify(token, "abc123", (err, decoded) => {
+            jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
                 if (err) {
                     return res.status(400).send({
                         success: false,
@@ -19,7 +18,7 @@ module.exports = {
         } else {
             return res.status(404).send({
                 success: false,
-                message: "Access Denied!, Unauthorised User "
+                message: "Access Denied!, Unauthorised User"
             });
         }
     }

@@ -14,9 +14,6 @@ const logger = require('./config/logger');
 dbconnection();
 
 // parse requests 
-app.use(express.urlencoded({ extended: true }))
-
-// parse requests 
 app.use(express.json())
 
 // define a simple route

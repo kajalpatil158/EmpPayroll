@@ -1,7 +1,8 @@
 const empService = require('../service/employeepayroll');
 const empPayroll = require('../models/employeepayroll.js');
-const empData = require('../validation/employeepayroll.js');
+const empData = require('../middleware/employeepayroll.js');
 const { genSaltSync, hashSync } = require("bcrypt");
+
 /* @Description- create and save new emp
  * @param res is used to send responce.
  * @ method- create is use to cewate a employee Data.
@@ -9,25 +10,16 @@ const { genSaltSync, hashSync } = require("bcrypt");
  */
 class EmployeePayroll {
     create = (req, res) => {
-        //Veriable Is Created validtion Emp To Validated Emp And Write A Data.
         var validationEmp = empData.validate(req.body);
-        console.log(validationEmp);
-
         if (validationEmp.error) {
             return res.status(400).send({
                 success: false,
                 message: validationEmp.error.message
             });
         }
-
-        //genSaltSync and hashSync Is Used For Encrypt A Data.
-        //const salt = genSaltSync(10);
-        //req.body.password = hashSync(req.body.password, salt);
-
         let empInfo = req.body;
         empService.create(empInfo, (error, validationEmp) => {
             if (error) {
-                //logger.error("error occred while creating employee payroll");
                 return res.status(500).send({
                     success: false,
                     message: 'error occure while creating employee payroll'
@@ -88,20 +80,16 @@ class EmployeePayroll {
         let empId = req.params.empId;
         empService.updateByID(req.body, empId, (error, data) => {
             if (error) {
-                logger.error("Some Error Occure While Updating Emp Data")
-                if (error.kind === 'ObjectId') {
-                    return res.status(404).send({
-                        message: "Employee Not Finding With Given Id " + req.params.empId
-                    });
-                }
-                res.send({
-                    success: true,
-                    message: "Data updated successfully",
-                    data: data
-                })
-
+                return res.status(404).send({
+                    success: false,
+                    message: "Employee Not Finding With Given Id "
+                });
             }
-
+            res.send({
+                success: true,
+                message: "Data updated successfully",
+                data: data
+            })
         })
     };
     /* @Description - Delete Employee Payroll Data Update Emp Data By Id
@@ -115,12 +103,11 @@ class EmployeePayroll {
                 return res.status(404).send({
                     success: false,
                     message: "Employee Id not found"
-
                 })
             }
             res.send({
                 success: true,
-                data: empData
+                message: "Employee Deleted Successfully"
             })
         })
     };
@@ -139,6 +126,7 @@ class EmployeePayroll {
                 message: "User Login Successfull!!",
                 token: data
             });
+
         })
     }
 }

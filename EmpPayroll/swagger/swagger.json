@@ -108,7 +108,7 @@
                         "type": "string"
                     },
                     {
-                        "name": "New Employee Detail",
+                        "name": "New Employee Data",
                         "in": "body",
                         "required": true,
                         "schema": {
