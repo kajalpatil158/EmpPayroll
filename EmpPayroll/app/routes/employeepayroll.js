@@ -1,9 +1,10 @@
 const employeePayroll = require('../controllers/employeepayroll.js');
+const UserData = require('../controllers/userData.js')
 const validation = require('../middleware/helper.js');
-module.exports = (app) => {
 
+module.exports = (app) => {
     // Create a new employeespayroll
-    app.post('/addEmployee', employeePayroll.create);
+    app.post('/addEmployee',  employeePayroll.create);
 
     // Retrieve all employeespayroll
     app.get('/empPayroll', validation.checkToken, employeePayroll.findAll);
@@ -17,7 +18,10 @@ module.exports = (app) => {
     // Delete a employeespayroll with employeepayroll
     app.delete('/delete/:empId', validation.checkToken, employeePayroll.delete);
 
-    // Login JWT Authentication
-    app.post('/login', employeePayroll.login);
+    // Created And Added User
+    app.post('/register', UserData.userRegistrationDetails);
+
+    // Login User
+    app.post('/login', UserData.loginUser);
 
 }

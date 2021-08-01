@@ -69,14 +69,5 @@ class empModel {
             return (error) ? callBack(error, null) : callBack(null, data);
         })
     }
-
-    getUserByEmail = (email, callBack) => {
-        empPayrollModel.findOne({ "emailId": email.emailId }, (error, data) => {
-            if (error) {
-                return callback(error, null)
-            }
-            return (!data) ? callBack("User Not Exist ", null) : callBack(null, data);
-        })
-    }
 }
 module.exports = new empModel();
