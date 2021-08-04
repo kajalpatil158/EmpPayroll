@@ -7,6 +7,8 @@ const EmployeeSchema = new mongoose.Schema({
     emailId: String,
     password: String
 }, {
+    //versionKey to false since it’s useless for the purpose of the App
+    versionKey: false,
     timestamps: true
 });
 
@@ -42,18 +44,18 @@ class empModel {
          */
     findById = (empId, callback) => {
             empPayrollModel.findById(empId, (error, data) => {
-                return (error) ? callback(error, null) : callback(null, data);
+                return (error) ? callBack(error, null) : callBack(null, data);
             });
         }
         /* @Description - Update method Created To Updated A Data
          * @param data sent from Service
          * @return callback is used to callback Services includes error message or data
          */
-    updateById = (newData, empId, callBack) => {
+    updateById = (empId, newData, callback) => {
             empPayrollModel.findByIdAndUpdate(empId, {
                     firstName: newData.firstName,
                     lastName: newData.lastName,
-                    emailId: newData.emailId,
+                    email: newData.email,
                     password: newData.password
                 }, { new: true },
                 (error, data) => {
@@ -64,8 +66,8 @@ class empModel {
          * @param data sent from Service
          * @return callback is used to callback Services includes error message or data
          */
-    deleteById = (empId, callBack) => {
-        empPayrollModel.findByIdAndRemove(empId, (error, data) => {
+    deleteById = (empID, callback) => {
+        empPayrollModel.findByIdAndRemove(empID, error => {
             return (error) ? callBack(error, null) : callBack(null, data);
         })
     }

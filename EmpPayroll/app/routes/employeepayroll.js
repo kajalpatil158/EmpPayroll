@@ -1,13 +1,13 @@
-const employeePayroll = require('../controllers/employeepayroll.js');
+const employeePayroll = require('../controllers/employeepayroll');
 const UserData = require('../controllers/userData.js')
-const validation = require('../middleware/helper.js');
+const validation = require('../middleware/helper');
 
 module.exports = (app) => {
     // Create a new employeespayroll
     app.post('/addEmployee',  employeePayroll.create);
 
     // Retrieve all employeespayroll
-    app.get('/empPayroll', validation.checkToken, employeePayroll.findAll);
+    app.get('/empPayroll',  employeePayroll.findAll);
 
     // Retrieve a single employeespayroll with employeepayroll
     app.get('/empPayroll/:empId', validation.checkToken, employeePayroll.findOne);

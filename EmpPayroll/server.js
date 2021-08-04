@@ -2,7 +2,8 @@ const express = require('express');
 
 // create express app
 const app = express();
-
+var cors = require('cors');
+app.use(cors());
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger.json');
 
@@ -15,6 +16,7 @@ dbconnection();
 
 // parse requests 
 app.use(express.json())
+
 
 // define a simple route
 app.get('/', (req, res) => {
