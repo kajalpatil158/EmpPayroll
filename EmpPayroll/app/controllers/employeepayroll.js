@@ -36,8 +36,7 @@ class EmployeePayroll {
     /* @Description - Find Employee Payroll Data Retrive All Emp Data
      * @param req Is Used To Send Http Request
      * @param res Is Used To Take A Http Responce.
-     */
-    findAll = (req, res) => {
+     */ findAll = (req, res) => {
         empService.findAll((error, empData) => {
             if (error) {
                 return res.status(404).send({
@@ -80,16 +79,20 @@ class EmployeePayroll {
         let empId = req.params.empId;
         empService.updateByID(req.body, empId, (error, data) => {
             if (error) {
-                return res.status(404).send({
-                    success: false,
-                    message: "Employee Not Finding With Given Id "
-                });
+                //logger.error("Some Error Occure While Updating Emp Data")
+                if (error.kind === 'ObjectId') {
+                    return res.status(404).send({
+                        success: false,
+                        message: "Employee Not Finding With Given Id "
+                    });
+                }
             }
             res.send({
                 success: true,
                 message: "Data updated successfully",
                 data: data
             })
+
         })
     };
     /* @Description - Delete Employee Payroll Data Update Emp Data By Id
@@ -103,13 +106,16 @@ class EmployeePayroll {
                 return res.status(404).send({
                     success: false,
                     message: "Employee Id not found"
+
                 })
             }
             res.send({
                 success: true,
-                message: "Employee Deleted Successfully"
+                data: empData
             })
         })
     };
+
+   
 }
 module.exports = new EmployeePayroll();

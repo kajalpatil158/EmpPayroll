@@ -22,37 +22,44 @@ class EmpService {
      * @return callback is used to callback controller
      */
     findAll = (callback) => {
-            EmpModel.findAll((error, data) => {
-                return (error) ? callBack(error, null) : callBack(null, data);
-            });
-        }
-        /* @Description - findById method is created.
-         * @param- empData send from controller
-         * @return callback is used to callback controller
-         */
-    findById = (empId, callback) => {
-            EmpModel.findById(empId, (error, data) => {
-                return (error) ? callBack(error, null) : callBack(null, data);
-            });
-        }
-        /* @Description - updateById method is created.
-         * @param- empData send from controller
-         * @return callback is used to callback controller
-         */
-    updateByID = (empId, newData, callBack) => {
-        EmpModel.updateById(empId, newData, (error, data) => {
-            return (error) ? callBack(error, null) : callBack(null, data);
-        })
+        EmpModel.findAll((error, data) => {
+            if (error) {
+                return callback(error, null);
+            }
+            return callback(null, data);
+        });
     }
-
-    /* @Description - Delete method is created.
+    /* @Description - findById method is created.
      * @param- empData send from controller
      * @return callback is used to callback controller
      */
-    deleteById = (empId, callBack) => {
-        EmpModel.deleteById(empId, (error, data) => {
-            return (error) ? callBack(error, null) : callBack(null, data);
+findById = (empId, callback) => {
+        EmpModel.findById(empId, (error, data) => {
+            if (error) {
+                return callback(error, null);
+            }
+            return callback(null, data);
         });
     }
+    /* @Description - updateById method is created.
+     * @param- empData send from controller
+     * @return callback is used to callback controller
+     */
+updateByID = (empId, newData, callBack) => {
+    EmpModel.updateById(empId, newData, (error, data) => {
+        console.log(data);
+        return (error) ? callBack(error, null) : callBack(null, data);
+    })
 }
-module.exports = new EmpService()
+
+/* @Description - Delete method is created.
+ * @param- empData send from controller
+ * @return callback is used to callback controller
+ */
+deleteById = (empId, callBack) => {
+    EmpModel.deleteById(empId, (error, data) => {
+        return (error) ? callBack(error, null) : callBack(null, data);
+    });
+}
+}
+module.exports = new EmpService();

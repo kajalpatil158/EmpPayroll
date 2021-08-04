@@ -33,7 +33,7 @@ class empModel {
          * @param  data sent from Service
          * @return callback is used to callback Services includes error message or data
          */
-    findAll = (callBack) => {
+        findAll = (callBack) => {
             empPayrollModel.find((error, data) => {
                 return (error) ? callBack(error, null) : callBack(null, data);
             });
@@ -44,31 +44,39 @@ class empModel {
          */
     findById = (empId, callback) => {
             empPayrollModel.findById(empId, (error, data) => {
-                return (error) ? callBack(error, null) : callBack(null, data);
+                return (error) ? callback(error, null) : callback(null, data);
             });
         }
         /* @Description - Update method Created To Updated A Data
          * @param data sent from Service
          * @return callback is used to callback Services includes error message or data
          */
-    updateById = (empId, newData, callback) => {
+    updateById = (newData, empId, callBack) => {
             empPayrollModel.findByIdAndUpdate(empId, {
                     firstName: newData.firstName,
                     lastName: newData.lastName,
-                    email: newData.email,
+                    emailId: newData.emailId,
                     password: newData.password
                 }, { new: true },
                 (error, data) => {
-                    return (error) ? callBack(error, null) : callBack(null, data);
+                    if (error) {
+                        return callBack(error, null);
+                    } else {
+                        return callBack(null, data);
+                    }
                 });
         }
         /* @Description - Update method Created To Updated A Data
          * @param data sent from Service
          * @return callback is used to callback Services includes error message or data
          */
-    deleteById = (empID, callback) => {
-        empPayrollModel.findByIdAndRemove(empID, error => {
-            return (error) ? callBack(error, null) : callBack(null, data);
+    deleteById = (empId, callBack) => {
+        empPayrollModel.findByIdAndRemove(empId, (error, data) => {
+            if (error) {
+                return callBack(error, null);
+            } else {
+                return callBack(null, data);
+            }
         })
     }
 }
