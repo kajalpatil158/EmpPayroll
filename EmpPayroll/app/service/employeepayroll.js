@@ -10,7 +10,7 @@ class EmpService {
     create = (empData, callBack) => {
         EmpModel.create(empData, (error, data) => {
             if(error){
-                logger.error("Employee payroll Create service -",error);
+                logger.error("Employee payroll Create service ",error);
                 return callBack(error, null);  
             }
                 logger.info("Employee payroll Create service -",data);
@@ -23,24 +23,28 @@ class EmpService {
      * @param- empData send from controller
      * @return callback is used to callback controller
      */
-    findAll = (callback) => {
+    findAll = (callBack) => {
         EmpModel.findAll((error, data) => {
             if (error) {
-                return callback(error, null);
+                logger.error("Employee payroll Find service ",error);
+                return callBack(error, null);
             }
-            return callback(null, data);
+            logger.info("Employee payroll Create service -",data);
+            return callBack(null, data);
         });
     }
     /* @Description - findById method is created.
      * @param- empData send from controller
      * @return callback is used to callback controller
      */
-findById = (empId, callback) => {
+findById = (empId, callBack) => {
         EmpModel.findById(empId, (error, data) => {
             if (error) {
-                return callback(error, null);
+                logger.error("Employee payroll Find service ",error);
+                return callBack(error, null);
             }
-            return callback(null, data);
+            logger.info("Employee payroll Create service -",data);
+            return callBack(null, data);
         });
     }
     /* @Description - updateById method is created.
@@ -49,8 +53,14 @@ findById = (empId, callback) => {
      */
 updateByID = (empId, newData, callBack) => {
     EmpModel.updateById(empId, newData, (error, data) => {
-        console.log(data);
-        return (error) ? callBack(error, null) : callBack(null, data);
+        if (error) {
+            logger.error("Employee payroll update service ",error);
+            return callBack(error, null);
+        }
+        logger.info("Employee payroll update service -",data);
+        return callBack(null, data);
+
+        //return (error) ? callBack(error, null) : callBack(null, data);
     })
 }
 
@@ -60,7 +70,14 @@ updateByID = (empId, newData, callBack) => {
  */
 deleteById = (empId, callBack) => {
     EmpModel.deleteById(empId, (error, data) => {
-        return (error) ? callBack(error, null) : callBack(null, data);
+        if (error) {
+            logger.error("Employee payroll delete service ",error);
+            return callBack(error, null);
+        }
+        logger.info("Employee payroll delete service -",data);
+        return callBack(null, data);
+
+        //return (error) ? callBack(error, null) : callBack(null, data);
     });
  }
 }
