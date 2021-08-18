@@ -1,7 +1,7 @@
 const joi = require("@hapi/joi");
 
 class userDataFields {
-    userData = joi.object({
+    joiUserValidator = joi.object({
         firstName: joi.string().alphanum().max(30),
         lastName: joi.string().alphanum().max(30),
         emailId: joi.string().email().required(),

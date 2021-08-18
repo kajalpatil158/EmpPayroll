@@ -1,7 +1,6 @@
 const EmpModel = require('../models/employeepayroll');
-const { genSaltSync, hashSync } = require("bcrypt");
-const bcrypt = require('bcrypt');
-const { sign } = require('jsonwebtoken');
+const logger = require('../../config/logger');
+
 class EmpService {
 
     /* @Description - create method is created.
@@ -9,11 +8,14 @@ class EmpService {
      * @return callback is used to callback controller
      */
     create = (empData, callBack) => {
-        const salt = genSaltSync(10);
-        empData.password = hashSync(empData.password, salt);
-        //console.log(empData.password);
         EmpModel.create(empData, (error, data) => {
-            return (error) ? callBack(error, null) : callBack(null, data);
+            if(error){
+                logger.error("Employee payroll Create service -",error);
+                return callBack(error, null);  
+            }
+                logger.info("Employee payroll Create service -",data);
+                return callBack(null, data);
+            //return (error) ? callBack(error, null) : callBack(null, data);
         })
     }
 
@@ -60,6 +62,6 @@ deleteById = (empId, callBack) => {
     EmpModel.deleteById(empId, (error, data) => {
         return (error) ? callBack(error, null) : callBack(null, data);
     });
-}
+ }
 }
 module.exports = new EmpService();

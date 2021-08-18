@@ -1,7 +1,6 @@
 const userService = require('../service/userData.js');
-const validateData = require('../middleware/validation.js');
-const userField = require('../middleware/userData.js');
-const { data } = require('../../config/logger.js');
+const validator = require('../middleware/userData.js');
+
 class UserInfo {
     /**
      * @Description - Create User Data.
@@ -9,7 +8,7 @@ class UserInfo {
      * @param res is used to send the response
      */
     userRegistrationDetails = (req, res) => {
-            var validationUser = validateData.userData.validate(req.body);
+            var validationUser = validator.joiUserValidator.validate(req.body);
             if (validationUser.error) {
                 return res.status(400).send({
                     success: false,
@@ -21,7 +20,6 @@ class UserInfo {
                 if (error) {
                     return res.status(500).send({
                         success: false,
-                        logger: error,
                         message: "Eroor Occured While Creating Address Book Data",
                     })
                 }
@@ -38,7 +36,7 @@ class UserInfo {
          * @param res is used to send the response
          */
     loginUser = (req, res) => {
-        let userInfo = userField.userData.validate(req.body);
+        let userInfo = validator.joiUserValidator.validate(req.body);
         userService.getUserByEmail(userInfo.value).then((data) => {
             res.send({
                 success: true,

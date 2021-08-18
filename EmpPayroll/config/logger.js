@@ -16,7 +16,6 @@ const logger = createLogger({
             level: 'error',
             format: format.combine(format.timestamp(), format.json())
         }),
-
     ]
 })
 

@@ -77,9 +77,9 @@ class EmployeePayroll {
          */
     update = (req, res) => {
         let empId = req.params.empId;
+        console.log(req);
         empService.updateByID(req.body, empId, (error, data) => {
             if (error) {
-                //logger.error("Some Error Occure While Updating Emp Data")
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
                         success: false,
@@ -92,7 +92,6 @@ class EmployeePayroll {
                 message: "Data updated successfully",
                 data: data
             })
-
         })
     };
     /* @Description - Delete Employee Payroll Data Update Emp Data By Id
@@ -106,7 +105,6 @@ class EmployeePayroll {
                 return res.status(404).send({
                     success: false,
                     message: "Employee Id not found"
-
                 })
             }
             res.send({
