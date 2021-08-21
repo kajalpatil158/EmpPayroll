@@ -36,3 +36,5 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
   
  ## Testing the project
   $ npm Test
+  
+## Run build
