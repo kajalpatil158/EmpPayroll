@@ -1,4 +1,4 @@
 #!/bin/bash
 cd /home/ubuntu/EmployeePayroll_Backend/EmpPayroll
-npm install
-npm start
+pm2 delete 0
+pm2 --name EmployeeFrontEnd start npm -- star
